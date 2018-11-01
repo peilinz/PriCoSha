@@ -9,7 +9,7 @@ INSERT INTO Person(email, password, first_name, last_name) VALUES
 ('GG@nyu.edu', sha256('GG'), 'Gina', 'Gupta'),
 ('HH@nyu.edu', sha256('HH'), 'Helen', 'Harper');
 
-INSERT INTO FriendGroup(fg_name, description, email) VALUES
+INSERT INTO FriendGroup(fg_name, description, owner_email) VALUES
 ('family', 'Anns Family', 'AA@nyu.edu'),
 ('roommates', 'Anns Roommates', 'AA@nyu.edu'),
 ('family', 'Bobs Family', 'BB@nyu.edu');
