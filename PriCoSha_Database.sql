@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS Person(
 CREATE TABLE IF NOT EXISTS FriendGroup(
 	fg_name VARCHAR(50),
 	description VARCHAR(50),
-	email VARCHAR(50),
-	PRIMARY KEY (fg_name, email),
-	FOREIGN KEY (email) REFERENCES Person(email)
+	owner_email VARCHAR(50),
+	PRIMARY KEY (fg_name, owner_email),
+	FOREIGN KEY (owner_email) REFERENCES Person(email)
 );
 
 CREATE TABLE IF NOT EXISTS ContentItem(
@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS ContentItem(
 	post_time DATETIME,
 	file_path VARCHAR(50),
 	item_name VARCHAR(50),
+	is_pub BOOLEAN,
 	PRIMARY KEY(item_id)
 );
 
@@ -38,21 +39,21 @@ CREATE TABLE IF NOT EXISTS Tag(
 );
 
 CREATE TABLE IF NOT EXISTS Rate(
-	email VARCHAR(50),
+	rater_email VARCHAR(50),
 	item_id INT,
 	rate_time DATETIME,
 	emoji VARCHAR(50),
-	PRIMARY KEY(email, item_id),
-	FOREIGN KEY(email) REFERENCES Person(email),
+	PRIMARY KEY(rater_email, item_id),
+	FOREIGN KEY(rater_email) REFERENCES Person(email),
 	FOREIGN KEY(item_id) REFERENCES ContentItem(item_id)
 );
 
 
 CREATE TABLE IF NOT EXISTS Own(
-	email VARCHAR(50),
+	owner_email VARCHAR(50),
 	fg_name VARCHAR(50),
-	PRIMARY KEY (email, fg_name),
-	FOREIGN KEY (email) REFERENCES Person(email),
+	PRIMARY KEY (owner_email, fg_name),
+	FOREIGN KEY (owner_email) REFERENCES Person(email),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name)
 );
 CREATE TABLE IF NOT EXISTS Belong(
@@ -65,10 +66,10 @@ CREATE TABLE IF NOT EXISTS Belong(
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name) 
 );
 CREATE TABLE IF NOT EXISTS Posted(
-	email VARCHAR(50),
+	poster_email VARCHAR(50),
 	item_id INT,
-	PRIMARY KEY (email, item_id),
-	FOREIGN KEY (email) REFERENCES Person(email),
+	PRIMARY KEY (poster_email, item_id),
+	FOREIGN KEY (poster_email) REFERENCES Person(email),
 	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 );
 CREATE TABLE IF NOT EXISTS Share(
@@ -78,3 +79,4 @@ CREATE TABLE IF NOT EXISTS Share(
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name),
 	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 );
+
