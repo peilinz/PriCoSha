@@ -44,10 +44,10 @@ INSERT INTO Posted(email, item_id) VALUES
 ('AA@nyu.edu', 2),
 ('BB@nyu.edu', 3);
 
-INSERT INTO Share(fg_name, item_id) VALUES
-('family', 1),
-('roommates', 2),
-('family', 3);
+INSERT INTO Share(fg_name, item_id,owner_email) VALUES
+('family', 1,'AA@nyu.edu'),
+('roommates', 2, 'AA@nyu.edu'),
+('family', 3, 'BB@nyu.edu');
   
   
   
