@@ -33,3 +33,18 @@ INSERT INTO Belong(email, fg_name) VALUES
 ('FF@nyu.edu', 'family', 'AA@nyu.edu'),
 ('EE@nyu.edu', 'family', 'AA@nyu.edu');
 
+
+INSERT INTO ContentItem(item_id,post_time item_name, is_pub) VALUES
+(1, CURRENT_TIMESTAMP, 'Whiskers', False),
+(2, CURRENT_TIMESTAMP, 'leftovers in fridge', False);
+
+INSERT INTO Post(
+  
+  
+  
+  
+  
+  
+  
+  
+  
