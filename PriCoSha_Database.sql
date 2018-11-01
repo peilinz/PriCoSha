@@ -56,6 +56,8 @@ CREATE TABLE IF NOT EXISTS Own(
 CREATE TABLE IF NOT EXISTS Belong(
 	email VARCHAR(50),
 	fg_name VARCHAR(50),
+	creator_email VARCHAR(50),
+	PRIMARY KEY (email, fg_name, creator_email),
 	FOREIGN KEY (email) REFERENCES Person(email),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name) 
 );
