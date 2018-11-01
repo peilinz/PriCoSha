@@ -8,6 +8,14 @@ CREATE TABLE Person(
 	PRIMARY KEY(email)
 );
 
+CREATE TABLE FriendGroup(
+	fg_name VARCHAR(50),
+	description VARCHAR(50),
+	email VARCHAR(50),
+	PRIMARY KEY (fg_name, email),
+FOREIGN KEY (email) REFERENCES Person(email)
+);
+
 CREATE TABLE ContentItem(
 	item_id VARCHAR(50),
 	post_time DATETIME,
@@ -36,4 +44,30 @@ CREATE TABLE Rate(
 	emoji VARCHAR(50),
 	FOREIGN KEY(email) REFERENCES Person(email),
 	FOREIGN KEY(item_id) REFERENCES ContentItem(item_id)
+);
+
+
+CREATE TABLE own(
+	email VARCHAR(50),
+	fg_name VARCHAR(50),
+	FOREIGN KEY (email) REFERENCES Person(email),
+	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name)
+);
+CREATE TABLE belong(
+	email VARCHAR(50),
+	fg_name VARCHAR(50),
+	FOREIGN KEY (email) REFERENCES Person(email),
+	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name) 
+);
+CREATE TABLE posted(
+	email VARCHAR(50),
+	item_id int,
+	FOREIGN KEY (email) REFERENCES Person(email)
+	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
+);
+CREATE TABLE share(
+	fg_name VARCHAR(50),
+	item_id int,
+	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name),
+	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 );
