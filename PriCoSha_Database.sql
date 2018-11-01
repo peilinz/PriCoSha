@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS FriendGroup(
 
 CREATE TABLE IF NOT EXISTS ContentItem(
 	item_id INT,
-	post_time DATETIME,
+	post_time TIMESTAMP,
 	file_path VARCHAR(50),
 	item_name VARCHAR(50),
 	is_pub BOOLEAN,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Tag(
 	tagged VARCHAR(50),
 	item_id INT,
 	status VARCHAR(50),
-	tag_time DATETIME,
+	tag_time TIMESTAMP,
 	PRIMARY KEY(tagger, tagged, item_id),
 	FOREIGN KEY(tagger) REFERENCES Person(email),
 	FOREIGN KEY(tagged) REFERENCES Person(email),
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Tag(
 CREATE TABLE IF NOT EXISTS Rate(
 	rater_email VARCHAR(50),
 	item_id INT,
-	rate_time DATETIME,
+	rate_time TIMESTAMP,
 	emoji VARCHAR(50),
 	PRIMARY KEY(rater_email, item_id),
 	FOREIGN KEY(rater_email) REFERENCES Person(email),
