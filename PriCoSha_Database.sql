@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS Rate(
 	item_id INT,
 	rate_time DATETIME,
 	emoji VARCHAR(50),
+	PRIMARY KEY(email, item_id),
 	FOREIGN KEY(email) REFERENCES Person(email),
 	FOREIGN KEY(item_id) REFERENCES ContentItem(item_id)
 );
@@ -50,26 +51,30 @@ CREATE TABLE IF NOT EXISTS Rate(
 CREATE TABLE IF NOT EXISTS Own(
 	email VARCHAR(50),
 	fg_name VARCHAR(50),
+	PRIMARY KEY (email, fg_name),
 	FOREIGN KEY (email) REFERENCES Person(email),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name)
 );
 CREATE TABLE IF NOT EXISTS Belong(
-	email VARCHAR(50),
+	member_email VARCHAR(50),
 	fg_name VARCHAR(50),
 	creator_email VARCHAR(50),
-	PRIMARY KEY (email, fg_name, creator_email),
-	FOREIGN KEY (email) REFERENCES Person(email),
+	PRIMARY KEY (member_email, fg_name, creator_email),
+	FOREIGN KEY (creator_email) REFERENCES Person(email),
+	FOREIGN KEY (member_email) REFERENCES Person(email),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name) 
 );
 CREATE TABLE IF NOT EXISTS Posted(
 	email VARCHAR(50),
 	item_id INT,
+	PRIMARY KEY (email, item_id),
 	FOREIGN KEY (email) REFERENCES Person(email),
 	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 );
 CREATE TABLE IF NOT EXISTS Share(
 	fg_name VARCHAR(50),
 	item_id INT,
+	PRIMARY KEY (fg_name, item_id),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name),
 	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 );

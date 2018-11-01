@@ -24,3 +24,5 @@ INSERT INTO Belong(email, fg_name) VALUES
 ('GG@nyu.edu', 'roommates'),
 ('HH@nyu.edu', 'roommates');
 
+INSERT INTO Belong
+
