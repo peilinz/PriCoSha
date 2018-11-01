@@ -10,14 +10,14 @@ INSERT INTO Person(email, password, first_name, last_name) VALUES
 ('HH@nyu.edu', sha256('HH'), 'Helen', 'Harper');
 
 INSERT INTO FriendGroup(fg_name, description, email) VALUES
-('family', 'Ann’s Family', 'AA@nyu.edu'),
-('roommates', 'Ann’s Roommates', 'AA@nyu.edu'),
-('family', 'Bob’s Family', 'BB@nyu.edu');
+('family', 'Ann's Family', 'AA@nyu.edu'),
+('roommates', 'Ann's Roommates', 'AA@nyu.edu'),
+('family', 'Bob's Family', 'BB@nyu.edu');
 
 INSERT INTO Own(email, fg_name) VALUES
 ('AA@nyu.edu', 'family'),
 ('AA@nyu.edu', 'roommates'),
-('BB@nyu.edu', 'family'),
+('BB@nyu.edu', 'family');
 
 INSERT INTO Belong(email, fg_name) VALUES
 ('AA@nyu.edu', 'roommates'),
