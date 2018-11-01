@@ -30,6 +30,6 @@ INSERT INTO Belong(email, fg_name) VALUES
 ('EE@nyu.edu', 'family', 'AA@nyu.edu'),
 
 ('BB@nyu.edu', 'family', 'BB@nyu.edu'),
-('FF@nyu.edu', 'family', 'AA@nyu.edu'),\
-('EE@nyu.edu', 'family', 'AA@nyu.edu'),
+('FF@nyu.edu', 'family', 'AA@nyu.edu'),
+('EE@nyu.edu', 'family', 'AA@nyu.edu');
 
