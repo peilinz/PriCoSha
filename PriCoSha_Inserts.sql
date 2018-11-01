@@ -34,12 +34,20 @@ INSERT INTO Belong(email, fg_name) VALUES
 ('EE@nyu.edu', 'family', 'AA@nyu.edu');
 
 
-INSERT INTO ContentItem(item_id,post_time item_name, is_pub) VALUES
+INSERT INTO ContentItem(item_id,post_time, item_name, is_pub) VALUES
 (1, CURRENT_TIMESTAMP, 'Whiskers', False),
-(2, CURRENT_TIMESTAMP, 'leftovers in fridge', False);
+(2, CURRENT_TIMESTAMP, 'leftovers in fridge', False),
+(3, CURRENT_TIMESTAMP, 'Rover', False);
 
-INSERT INTO Post(
-  
+INSERT INTO Posted(email, item_id) VALUES
+('AA@nyu.edu', 1),
+('AA@nyu.edu', 2),
+('BB@nyu.edu', 3);
+
+INSERT INTO Share(fg_name, item_id) VALUES
+('family', 1),
+('roommates', 2),
+('family', 3);
   
   
   
