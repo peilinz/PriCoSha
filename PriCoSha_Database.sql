@@ -75,7 +75,8 @@ CREATE TABLE IF NOT EXISTS Posted(
 CREATE TABLE IF NOT EXISTS Share(
 	fg_name VARCHAR(50),
 	item_id INT,
-	PRIMARY KEY (fg_name, item_id),
+	owner_email VARCHAR(50),
+	PRIMARY KEY (fg_name, item_id, owner_email),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name),
 	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 );
