@@ -1,13 +1,13 @@
 -- Insert people
 INSERT INTO Person(email, password, first_name, last_name) VALUES
-('AA@nyu.edu', sha256('AA'), 'Ann', 'Anderson'),
-('BB@nyu.edu', sha256('BB'), 'Bob', 'Baker'),
-('CC@nyu.edu', sha256('CC'), 'Cathy', 'Chang'),
-('DD@nyu.edu', sha256('DD'), 'David','Davidson'),
-('EE@nyu.edu', sha256('EE'), 'Ellen', 'Ellenberg'),
-('FF@nyu.edu', sha256('FF'), 'Fred', 'Fox'),
-('GG@nyu.edu', sha256('GG'), 'Gina', 'Gupta'),
-('HH@nyu.edu', sha256('HH'), 'Helen', 'Harper');
+('AA@nyu.edu', SHA256('AA'), 'Ann', 'Anderson'),
+('BB@nyu.edu', SHA256('BB'), 'Bob', 'Baker'),
+('CC@nyu.edu', SHA256('CC'), 'Cathy', 'Chang'),
+('DD@nyu.edu', SHA256('DD'), 'David','Davidson'),
+('EE@nyu.edu', SHA256('EE'), 'Ellen', 'Ellenberg'),
+('FF@nyu.edu', SHA256('FF'), 'Fred', 'Fox'),
+('GG@nyu.edu', SHA256('GG'), 'Gina', 'Gupta'),
+('HH@nyu.edu', SHA256('HH'), 'Helen', 'Harper');
 
 INSERT INTO FriendGroup(fg_name, description, owner_email) VALUES
 ('family', 'Anns Family', 'AA@nyu.edu'),
