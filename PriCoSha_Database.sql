@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS ContentItem(
 	item_name VARCHAR(50),
 	is_pub BOOLEAN,
 	PRIMARY KEY(item_id),
-	FOREIGN KEY(email_post) REFERENCES Person(email_post)
+	FOREIGN KEY(email_post) REFERENCES Person(email)
 );
 
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS Belong(
 	creator_email VARCHAR(50),
 	PRIMARY KEY (member_email, fg_name, creator_email),
 	FOREIGN KEY (member_email) REFERENCES Person(email),
-	FOREIGN KEY (fg_name,creator_email) REFERENCES FriendGroup(fg_name, creator_email) 
+	FOREIGN KEY (fg_name,creator_email) REFERENCES FriendGroup(fg_name, owner_email) 
 );
 
 CREATE TABLE IF NOT EXISTS Posted(
