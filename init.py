@@ -94,5 +94,7 @@ def public_content():
     return render_template('public_content.html', post=data)
 
 
+app.secret_key = 'FDSJKGSEW'
+
 if __name__ == '__main__':
     app.run('127.0.0.1', 5000, debug=True)
