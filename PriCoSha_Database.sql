@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS Belong(
 	member_email VARCHAR(50),
 	fg_name VARCHAR(50),
 	creator_email VARCHAR(50),
-	PRIMARY KEY (member_email, fg_name, creator_email),
+	PRIMARY KEY (member_email, fg_name),
 	FOREIGN KEY (member_email) REFERENCES Person(email),
-	FOREIGN KEY (fg_name,creator_email) REFERENCES FriendGroup(fg_name, owner_email) 
+	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name) 
 );
 
 CREATE TABLE IF NOT EXISTS Posted(
