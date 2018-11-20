@@ -1,0 +1,37 @@
+<html>
+<head>
+</head>
+
+<style>
+    table{
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {border: 1px solid #435259;}
+
+</style>
+<body>
+<h2> Welcome </h2>
+<h3> This is the photo your friends and the public posted in the last 24 hours. </h3>
+
+<table>
+    <tr bgcolor="#A9CDDF">
+    <th>Item ID</th>
+    <th>Email</th>
+    <th>Time</th>
+    <th>File Path</th>
+    <th>Item Description</th> </tr>
+    {% for item in post %}
+    <tr>
+        <td>{{item.item_id}}</td>
+        <td>{{item.email_post}}</td>
+        <td>{{item.post_time}}</td>
+        <td>{{item.file_path}}</td>
+        <td>{{item.item_name}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>
