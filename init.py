@@ -15,6 +15,62 @@ conn_sql = pymysql.connect(host='localhost',
 @app.route('/')
 def hello():
     return render_template('index.html')
+  
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/loginAuth', methods=['GET', 'POST'])
+def loginAuth():
+    username = request.form['username']
+    password = request.form['password']
+
+    cursor = conn.cursor()
+    query = 'SELECT * FROM Person WHERE username = %s and password = %s'
+    cursor.execute(query, (username, hashlib.sha1(password.encode('utf-8')).hexdigest()))
+    data = cursor.fetchone()
+
+    cursor.close()
+    error = None
+
+    if(data):
+        session['username'] = username
+        return redirect(url_for('home'))
+    else:
+        error = 'Invalid login or username'
+        return render_template('login.html', error=error)
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+  
+@app.route('/registerAuth', methods=['GET', 'POST'])
+def registerAuth():
+    username = request.form['username']
+    password = request.form['password']
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+
+    cursor = conn.cursor()
+    query = 'SELECT * FROM Person WHERE username = %s'
+    cursor.execute(query, (username))
+    data = cursor.fetchone()
+    error = None
+    
+    if(data):
+        error = "This user already exists"
+        return render_template('register.html', error = error)
+    else:
+        ins = 'INSERT INTO Person VALUES(%s, %s, %s, %s)'
+        cursor.execute(ins, (username, hashlib.sha1(password.encode('utf-8')).hexdigest(),first_name,last_name))
+        conn.commit()
+        cursor.close()
+        return render_template('index.html')
+
 
 
 @app.route('/public_content', methods=['GET', 'POST'])
