@@ -71,7 +71,17 @@ def registerAuth():
         cursor.close()
         return render_template('index.html')
 
+@app.route('/home')
+def home():
+    user = session['username']
+    cursor = conn.cursor();
+    query = 'SELECT ts, blog_post FROM blog WHERE username = %s ORDER BY ts DESC'
+    cursor.execute(query, (user))
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('home.html', username=user)
 
+        
 
 @app.route('/public_content', methods=['GET', 'POST'])
 def public_content():
