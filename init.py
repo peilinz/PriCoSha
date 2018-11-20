@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, session, url_for
 import pymysql.cursors
+import hashlib
 
 app = Flask(__name__)
 
@@ -15,73 +16,78 @@ conn_sql = pymysql.connect(host='localhost',
 @app.route('/')
 def hello():
     return render_template('index.html')
-  
-@app.route('/login')
-def login():
-    return render_template('login.html')
+
 
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 
 @app.route('/loginAuth', methods=['GET', 'POST'])
 def loginAuth():
-    username = request.form['username']
+    email = request.form['email']
     password = request.form['password']
 
-    cursor = conn.cursor()
-    query = 'SELECT * FROM Person WHERE username = %s and password = %s'
-    cursor.execute(query, (username, hashlib.sha1(password.encode('utf-8')).hexdigest()))
+    cursor = conn_sql.cursor()
+    query = 'SELECT * FROM Person WHERE email = %s and password = %s'
+    cursor.execute(query, (email, hashlib.sha1(password.encode('utf-8')).hexdigest()))
     data = cursor.fetchone()
 
     cursor.close()
     error = None
 
-    if(data):
-        session['username'] = username
+    if (data):
+        session['email'] = email
         return redirect(url_for('home'))
     else:
-        error = 'Invalid login or username'
+        error = 'Invalid login or email'
         return render_template('login.html', error=error)
+
 
 @app.route('/register')
 def register():
     return render_template('register.html')
-  
+
+
 @app.route('/registerAuth', methods=['GET', 'POST'])
 def registerAuth():
-    username = request.form['username']
+    email = request.form['email']
     password = request.form['password']
     first_name = request.form['first_name']
     last_name = request.form['last_name']
 
-    cursor = conn.cursor()
-    query = 'SELECT * FROM Person WHERE username = %s'
-    cursor.execute(query, (username))
+    cursor = conn_sql.cursor()
+    query = 'SELECT * FROM Person WHERE email = %s'
+    cursor.execute(query, (email))
     data = cursor.fetchone()
     error = None
-    
-    if(data):
+
+    if (data):
         error = "This user already exists"
-        return render_template('register.html', error = error)
+        return render_template('register.html', error=error)
     else:
         ins = 'INSERT INTO Person VALUES(%s, %s, %s, %s)'
-        cursor.execute(ins, (username, hashlib.sha1(password.encode('utf-8')).hexdigest(),first_name,last_name))
-        conn.commit()
+        cursor.execute(ins, (email, hashlib.sha1(password.encode('utf-8')).hexdigest(), first_name, last_name))
+        conn_sql.commit()
         cursor.close()
         return render_template('index.html')
 
+
 @app.route('/home')
 def home():
-    user = session['username']
-    cursor = conn.cursor();
-    query = 'SELECT ts, blog_post FROM blog WHERE username = %s ORDER BY ts DESC'
+    user = session['email']
+    cursor = conn_sql.cursor();
+    query = 'SELECT ts, blog_post FROM blog WHERE email = %s ORDER BY ts DESC'
     cursor.execute(query, (user))
     data = cursor.fetchall()
     cursor.close()
-    return render_template('home.html', username=user)
+    return render_template('home.html', email=user)
 
-        
 
 @app.route('/public_content', methods=['GET', 'POST'])
 def public_content():
