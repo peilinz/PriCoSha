@@ -2,9 +2,10 @@
 <head>
 </head>
 <body>
+<h1>Login to your Account</h1><br><br>
 <form action="/loginAuth" method="POST">
-	<input type="text" name = "email" placeholder="email" required/> </br>
-	<input type="password" name = "password" placeholder="password" required/></br>
+	Email: <input type="text" name = "email" required/> </br>
+	Password: <input type="password" name = "password" required/></br>
 	<input type="submit" value = Login />
 	{% if error %}
 		<p class="error"><strong>Error:</strong> {{error}}</p>

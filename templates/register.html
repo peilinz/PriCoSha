@@ -2,11 +2,12 @@
 <head>
 </head>
 <body>
+<h1>Register Your Account</h1> <br><br>
 <form action="/registerAuth" method="POST">
-	<input type="text" name = "email" placeholder="email" required/> </br>
-	<input type="password" name = "password" placeholder="password" required/></br>
-	<input type="text" name = "first_name" placeholder= "first name" required/></br>
-	<input type="text" name = "last_name" placeholder= "last name" required/></br>
+	Email: <input type="text" name = "email" required/> </br>
+	Passport: <input type="password" name = "password" required/></br>
+	First Name: <input type="text" name = "first_name" required/></br>
+	Last Name: <input type="text" name = "last_name" required/></br>
 	<input type="submit" value = Register />
 	{% if error %}
 		<p class="error"><strong>Error:</strong> {{error}}</p>
