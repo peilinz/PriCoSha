@@ -77,21 +77,15 @@ def registerAuth():
 def home():
     user = session['email']
     cursor = conn_sql.cursor();
-    query = 'SELECT ts, blog_post FROM blog WHERE email = %s ORDER BY ts DESC'
-    cursor.execute(query, (user))
-    data = cursor.fetchall()
-    cursor.close()
-    return render_template('home.html', email=user)
-
-
-@app.route('/public_content', methods=['GET', 'POST'])
-def public_content():
-    cursor = conn_sql.cursor();
     query = 'SELECT item_id, email_post, post_time, file_path, item_name FROM ContentItem'
+    name = 'SELECT first_name, last_name FROM person WHERE email="II@nyu.edu"'
     cursor.execute(query)
     data = cursor.fetchall()
+    cursor.execute(name)
+    names = cursor.fetchall()
+    print(names)
     cursor.close()
-    return render_template('public_content.html', post=data)
+    return render_template('public_content.html', post=data, firstname=names[0]['first_name'], lastname=names[0]['last_name'])
 
 
 app.secret_key = 'FDSJKGSEW'
