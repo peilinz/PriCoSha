@@ -9,15 +9,10 @@ INSERT INTO Person(email, password, first_name, last_name) VALUES
 ('GG@nyu.edu', SHA2('GG',256), 'Gina', 'Gupta'),
 ('HH@nyu.edu', SHA2('HH',256), 'Helen', 'Harper');
 
-INSERT INTO FriendGroup(fg_name, description, owner_email) VALUES
+INSERT INTO FriendGroup(fg_name, description, email) VALUES
 ('family', 'Anns Family', 'AA@nyu.edu'),
 ('roommates', 'Anns Roommates', 'AA@nyu.edu'),
 ('family', 'Bobs Family', 'BB@nyu.edu');
-
-INSERT INTO Own(owner_email, fg_name) VALUES
-('AA@nyu.edu', 'family'),
-('AA@nyu.edu', 'roommates'),
-('BB@nyu.edu', 'family');
 
 INSERT INTO Belong(member_email, fg_name, creator_email) VALUES
 ('AA@nyu.edu', 'roommates','AA@nyu.edu'),
@@ -34,17 +29,13 @@ INSERT INTO Belong(member_email, fg_name, creator_email) VALUES
 ('EE@nyu.edu', 'family', 'BB@nyu.edu');
 
 
-INSERT INTO ContentItem(item_id,post_time, item_name, is_pub) VALUES
-(1, CURRENT_TIMESTAMP, 'Whiskers', 0),
-(2, CURRENT_TIMESTAMP, 'leftovers in fridge', 0),
-(3, CURRENT_TIMESTAMP, 'Rover', 0);
+INSERT INTO ContentItem(item_id,email,post_time, item_name, is_pub) VALUES
+(1, 'AA@nyu.edu', CURRENT_TIMESTAMP, 'Whiskers', 0),
+(2, 'AA@nyu.edu', CURRENT_TIMESTAMP, 'leftovers in fridge', 0),
+(3, 'BB@nyu.edu', CURRENT_TIMESTAMP, 'Rover', 0);
 
-INSERT INTO Posted(poster_email, item_id) VALUES
-('AA@nyu.edu', 1),
-('AA@nyu.edu', 2),
-('BB@nyu.edu', 3);
 
-INSERT INTO Share(fg_name, item_id,owner_email) VALUES
+INSERT INTO Share(fg_name, item_id,email) VALUES
 ('family', 1,'AA@nyu.edu'),
 ('roommates', 2, 'AA@nyu.edu'),
 ('family', 3, 'BB@nyu.edu');
