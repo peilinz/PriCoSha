@@ -84,7 +84,6 @@ def home():
     data = cursor.fetchall()
     cursor.execute(name, (email))
     names = cursor.fetchall()
-    print(names)
     cursor.close()
     return render_template('home.html', post=data, firstname=names[0]['first_name'], lastname=names[0]['last_name'])
 

@@ -1,20 +1,46 @@
 <html>
+<style>
+    input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=submit]{
+ border: none;
+    background-color: #A9CDDF;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+back{
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;}
+</style>
 <head>
 </head>
 <body>
 <h1>Register Your Account</h1> <br><br>
 <form action="/registerAuth" method="POST">
-	Email: <input type="text" name = "email" required/> </br>
-	Passport: <input type="password" name = "password" required/></br>
-	First Name: <input type="text" name = "first_name" required/></br>
-	Last Name: <input type="text" name = "last_name" required/></br>
-	<input type="submit" value = Register />
-	{% if error %}
-		<p class="error"><strong>Error:</strong> {{error}}</p>
-	{% endif %}
+    Email: <input type="text" name="email" required/> </br>
+    Passport: <input type="password" name="password" required/></br>
+    First Name: <input type="text" name="first_name" required/></br>
+    Last Name: <input type="text" name="last_name" required/></br>
+    <input type="submit" value=Register>
+    {% if error %}
+    <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
 </form>
 
-<a href="/">Go back</a>
+<button class="back"><a href="/">Go back</a></button>
 
 </body>
 
