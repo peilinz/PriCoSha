@@ -75,14 +75,14 @@ def registerAuth():
 
 @app.route('/home')
 def home():
-    user = session['email']
+    email = session['email']
     cursor = conn_sql.cursor();
     query = 'SELECT item_id, email, post_time, file_path, item_name FROM ContentItem WHERE post_time >= NOW() - \
     INTERVAL 1 DAY AND is_pub = 1'
-    name = 'SELECT first_name, last_name FROM person WHERE email= "II@nyu.edu" '
+    name = 'SELECT first_name, last_name FROM person WHERE email= %s '
     cursor.execute(query)
     data = cursor.fetchall()
-    cursor.execute(name)
+    cursor.execute(name, (email))
     names = cursor.fetchall()
     print(names)
     cursor.close()
