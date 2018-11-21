@@ -19,12 +19,13 @@ input[type=submit]{
     display: inline-block;
 }
 
-back{
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
+.back{
+     border: none;
+    background-color: #ff0000;
+    padding: 14px 28px;
+    font-size: 16px;
     cursor: pointer;
-    width: 100%;}
+    display: inline-block;}
 
 
 </style>
@@ -36,12 +37,13 @@ back{
     Email: <input type="text" name="email" required/> </br>
     Password: <input type="password" name="password" required/></br>
     <input type="submit" value=Login>
+    <button class="back"><a href="/">Go back</a></button>
     {% if error %}
     <p class="error"><strong>Error:</strong> {{error}}</p>
     {% endif %}
 </form>
 
-<button class="back"><a href="/">Go back</a></button>
+
 
 </body>
 
