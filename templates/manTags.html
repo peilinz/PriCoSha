@@ -6,24 +6,6 @@ table{
     }
     td, th {border: 1px solid #435259;}
 
-input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-input[type=submit]{
- border: none;
-    background-color: #A9CDDF;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-block;
-}
-
 .back{
      border: none;
     background-color: #ff0000;
@@ -32,10 +14,12 @@ input[type=submit]{
     cursor: pointer;
     display: inline-block;}
 </style>
+
 <head>
 </head>
 <body>
-<h1>Manage Your Tags</h1> <br><br>
+<h1>Manage Your Tags</h1> 
+<br><br>
 <table>
     <tr bgcolor="#A9CDDF">
     <th>Tagger</th>
@@ -50,11 +34,12 @@ input[type=submit]{
         <td>{{item.item_id}}</td>
         <td>{{item.status}}</td>
         <td>{{item.tag_time}}</td>
-        <button class="btn"><a href="/manTags">Accept</a></button>
-        <button class="btn"><a href="/manTags">Decline</a></button>
+        <td><button class="btn"><a href="/manTags">Accept</a></button></td>
+        <td><button class="btn"><a href="/manTags">Decline</a></button></td>
     </tr>
     {% endfor %}
 </table>
+<br></br>
     <button class="back"><a href="/home">Go back</a></button>
 </body>
 </html>

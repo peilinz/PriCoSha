@@ -171,9 +171,6 @@ def addFriendAuth():
 
 @app.route('/manTags')
 def manTags():
-    return render_template('manTags.html')
-@app.route('/manTagsAuth', methods = ['GET','POST'])
-def manTagsAuth():
     email = session['email']
     cursor = conn_sql.cursor()
     query = 'SELECT tagger, item_id, status, tag_time FROM Tag WHERE tagged = %s'
