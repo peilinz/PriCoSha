@@ -28,7 +28,7 @@
     <th>Email</th>
     <th>Time</th>
     <th>File Path</th>
-    <th>Item Description</th> </tr>
+    <th>Item Description</th>
     {% for item in post %}
     <tr>
         <td>{{item.item_id}}</td>
@@ -39,9 +39,13 @@
     </tr>
     {% endfor %}
 </table>
-
+<br></br>
 <button class="btn"><a href="/share">Share</a></button>
+<button class="btn"><a href="/manTags">Manage Tags</a></button>
 <button class="btn"><a href="/addFriend">Add Friend</a></button>
+<button class="btn"><a href="/delFriend">Delete Friend</a></button>
+<br></br>
+<button class="btn"><a href="/index">Logout</a></button>
 
 
 </body>

@@ -168,6 +168,28 @@ def addFriendAuth():
         cursor.close()
         error = "Friend Group or Person does not exist!"
         return render_template('addFriend.html', error=error)
+
+@app.route('/manTags')
+def manTags():
+    return render_template('manTags.html')
+@app.route('/manTagsAuth', methods = ['GET','POST'])
+def manTagsAuth():
+    email = session['email']
+    cursor = conn_sql.cursor()
+    query = 'SELECT tagger, item_id, status, tag_time FROM Tag WHERE tagged = %s'
+    cursor.execute(query,(email))
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('manTags.html', tags = data)
+
+@app.route('/delFriend')
+def delFriend():
+    return render_template('delFriend.html')
+
+@app.route('/delFriendAuth', methods = ['GET','POST'])
+def defFriendAuth():
+    return render_template('delFriend.html')
+
     
 '''
 @app.route('/sharefg')

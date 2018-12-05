@@ -32,10 +32,9 @@ button{
 <form action="/shareAuth" method="POST">
     Item Name: <input type="text" name="item_name" required/> </br>
     URL: <input type="text" name="file_path"/> </br>
-    Private: <input type="checkbox" name="private"/> </br>
+    Public: <input type="checkbox" name="public"/> </br>
 
     <input type="submit" value=Share>
-    <a href="/sharefg"> <button> Share Privately </button></a>
     <button class="back"><a href="/">Go back</a></button>
     {% if error %}
     <p class="error"><strong>Error:</strong> {{error}}</p>
