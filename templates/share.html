@@ -1,0 +1,37 @@
+<html>
+<style>
+input[type=submit]{
+ border: none;
+    background-color: #A9CDDF;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.back{
+     border: none;
+    background-color: #ff0000;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;}
+</style>
+<head>
+</head>
+<body>
+<h1>What would you like to share?</h1> <br><br>
+<form action="/shareAuth" method="POST">
+    Item Name: <input type="text" name="item_name" required/> </br>
+    URL: <input type="text" name="URL"/> </br>
+    Public: <input type="checkbox" name ="public" required/> </br>
+
+    <input type="submit" value=Share>
+    <button class="back"><a href="/">Go back</a></button>
+    {% if error %}
+    <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+</form>
+</body>
+
+</html>

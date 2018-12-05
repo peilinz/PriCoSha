@@ -5,7 +5,7 @@ import hashlib
 app = Flask(__name__)
 
 conn_sql = pymysql.connect(host='localhost',
-                           port=3306,
+                           port=8889,
                            user='root',
                            password='root',
                            db='pricosha',
@@ -86,6 +86,42 @@ def home():
     names = cursor.fetchall()
     cursor.close()
     return render_template('home.html', post=data, firstname=names[0]['first_name'], lastname=names[0]['last_name'])
+
+@app.route('/share')
+def share():
+    return render_template('share.html')
+
+@app.route('/shareAuth',methods=['GET', 'POST'])
+def shareAuth():
+    item_name = request.form['item_name']
+    url = request.form['url']
+    public = request.form['public']
+    email = session['email']
+    
+    #gets mostrecentID
+    cursor = conn_sql.cursor()
+    query = 'SELECT max(item_id) FROM ContentItem'
+    cursor.execute(query)
+    data = cursor.fetchone()
+    error = None
+    
+    if (data == None):
+        item_id = 0
+    else:
+        print(data)
+        item_id = data+1
+    if (public):
+        public = 1
+        ins = 'INSERT INTO ContentItem VALUES(%d,%s,timestamp_value,%s,%s,%s)'
+        cursor.execute(ins,(item_id,email,CURRENT_TIMESTAMP,url,item_name, public))
+        cursor.commit()
+        cursor.close()
+        return render_template('home.html')
+    else:
+        public = 0
+        ins = 'INSERT INTO ContentItem VALUES(%d,%s,timestamp_value,%s,%s,%s)'
+        cursor.execute(ins,(item_id,email,CURRENT_TIMESTAMP,url,item_name, public))
+
 
 
 app.secret_key = 'FDSJKGSEW'
