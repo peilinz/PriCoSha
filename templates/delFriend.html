@@ -1,0 +1,38 @@
+
+<style>
+input[type=submit]{
+ border: none;
+    background-color: #A9CDDF;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.back{
+     border: none;
+    background-color: #ff0000;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;}
+</style>
+<head>
+</head>
+<body>
+<h1>Delete Friend from Friend Group</h1> <br><br>
+<form action="/delFriendAuth" method="POST">
+    Friend Group: <input type="text" name="fg_name" required/> </br>
+    First Name: <input type="text" name="first_name"/> </br>
+    Last Name: <input type="text" name="last_name"/> </br>
+    Email: <input type="text" name="mem_email"/></br>
+
+    <input type="submit" value=Delete>
+    <button class="back"><a href="/">Go back</a></button>
+    {% if error %}
+    <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+</form>
+</body>
+
+</html>
