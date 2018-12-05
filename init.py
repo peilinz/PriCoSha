@@ -5,7 +5,7 @@ import hashlib
 app = Flask(__name__)
 
 conn_sql = pymysql.connect(host='localhost',
-                           port=8889,
+                           port=3306,
                            user='root',
                            password='root',
                            db='pricosha',
@@ -105,22 +105,16 @@ def shareAuth():
     data = cursor.fetchone()
     error = None
     
-    if (data == None):
-        item_id = 0
-    else:
-        print(data)
-        item_id = data+1
     if (public):
-        public = 1
-        ins = 'INSERT INTO ContentItem VALUES(%d,%s,timestamp_value,%s,%s,%s)'
-        cursor.execute(ins,(item_id,email,CURRENT_TIMESTAMP,url,item_name, public))
-        cursor.commit()
-        cursor.close()
-        return render_template('home.html')
+    	public = 1
     else:
-        public = 0
-        ins = 'INSERT INTO ContentItem VALUES(%d,%s,timestamp_value,%s,%s,%s)'
-        cursor.execute(ins,(item_id,email,CURRENT_TIMESTAMP,url,item_name, public))
+    	public = 0
+    ins = 'INSERT INTO ContentItem VALUES(%d,%s,%s,%s,%s,%d)'
+    cursor.execute(ins,(item_id,email,CURRENT_TIMESTAMP,url,item_name, public))
+    cursor.commit()
+    cursor.close()
+    return render_template('home.html')
+
 
 
 
