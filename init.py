@@ -236,8 +236,28 @@ def delfFriendAuth():
     their_email = request.form['mem_email']
     fg_name = request.form.get['fg_name']
 
+    checkQ = 'SELECT member_email FROM Belong WHERE member_email = %s, creator_email = %s, fg_name = %s'
     delQuery = 'DELETE FROM Belong WHERE member_email = %s, fg_name = %s, creator_email = %s'
     delPost = 'DELETE FROM Share WHERE email = %s, fg_name = %s'
+    delTag = ''
+
+    #check if their in fg
+    cursor.execute(checkQ, (their_email,email,fg_name))
+    data = cursor.fetchone()
+    if data = None:
+        error = 'Person is not in Friend Group or does not exist. Please try again!'
+        return render_template('delFriend.html', error = error)
+
+    #delete Tags
+
+    #delete Post
+    cursor.execute(delPost, (email,fg_name))
+    conn_sql.commit()
+    #delete Person
+    cursor.execute(delQuery,(their_email,fg_name,email))
+    conn_sql.commit()
+    
+    cursor.close()
     return render_template('delFriend.html')
 
 # Tags
