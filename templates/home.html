@@ -31,7 +31,7 @@
     <th>Item Description</th>
     {% for item in post %}
     <tr>
-        <td>{{item.item_id}}</td>
+        <td><button class="btn"><a href="/addComment">{{item.item_id}}</a></button></td>
         <td>{{item.email}}</td>
         <td>{{item.post_time}}</td>
         <td>{{item.file_path}}</td>

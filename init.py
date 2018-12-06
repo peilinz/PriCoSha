@@ -352,6 +352,10 @@ def viewFG():
     return render_template('viewFG.html', data=data)
 
 
+@app.route('/addComment')
+def comment():
+    return render_template('addComment.html')
+
 
 
 app.secret_key = 'FDSJKGSEW'
