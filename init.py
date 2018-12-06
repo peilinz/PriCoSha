@@ -223,11 +223,13 @@ def manTags():
     email = session['email']
     cursor = conn_sql.cursor()
     query = 'SELECT tagger, item_id,tag_time FROM Tag WHERE tagged = %s AND status = 0'
-    query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE is_pub = 1 OR ('
+    query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE is_pub = 1 OR (Share.fg_name IN (SELECT fg_name FROM Belong WHERE email = %s))'
     cursor.execute(query, (email))
     data = cursor.fetchall()
+    cursor.execute(query2,(email))
+    data2 = cursor.fetchall()
     cursor.close()
-    return render_template('manTags.html', tags=data)
+    return render_template('manTags.html', tags=data, ids = data2)
 
 
 @app.route('/tagAcc', methods=['GET', 'POST'])
@@ -265,18 +267,19 @@ def tagSome():
     cursor = conn_sql.cursor()
     # check if already tagged in same post by same person
     query = 'SELECT tagger,tagged, item_id, status FROM Tag WHERE tagger = %s AND tagged = %s AND item_id = %s'
-    # check if they can actually see post
-
-    # check if y exists
-    crp = 'SELECT email FROM Person WHERE email = %s'
     cursor.execute(query, (x_email, y_email, item_id))
     data = cursor.fetchone()
-
+    # check if they can actually see post
+    query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE ContentItem.item_id = %s AND (is_pub = 1 OR Share.fg_name IN (SELECT fg_name FROM Belong WHERE email = %s))'
+    cursor.execute(query2,(item_id,y_email))
+    q2data = cursor.fetchone()
+    # check if y exists
+    crp = 'SELECT email FROM Person WHERE email = %s'
     cursor.execute(crp,(y_email))
     crpdata = cursor.fetchone()
 
 
-    if data or crp:
+    if data or not crp or not q2data:
         error = "You already tagged them in this post!"
         cursor.close()
         return render_template('manTags.html', error=error)
