@@ -16,7 +16,9 @@ conn_sql = pymysql.connect(host='localhost',
 @app.route('/')
 def hello():
     return render_template('index.html')
-
+@app.route('/index')
+def index():
+    return render_template('index.html')
 
 @app.route('/login')
 def login():
@@ -246,37 +248,34 @@ def tagDecline():
     return redirect(url_for('manTags'))
 
 @app.route('/tagSome', methods=['GET','POST'])
-
-
-
-
-
-
-    
-'''
-@app.route('/sharefg')
-def sharefg():
-    return render_template('sharefg.html')
-
-@app.route('/sharefgAuth',methods = ['GET','POST'])
-def sharefgAuth():
-    email = session['email']
-    friend_group = request.form['friend_group']
+def tagSome():
+    x_email = session['email']
+    y_email = request.form['y_email']
+    item_id = request.form['item_id']
 
     cursor = conn_sql.cursor()
-    query = 'SELECT max(item_id) as lastID FROM ContentItem WHERE email = %s'
-    cursor.execute(query,(email))
+    #check if already tagged in same post by same person
+    query = 'SELECT tagger,tagged, item_id, status FROM Tag WHERE tagger = %s AND tagged = %s AND item_id = %s'
+    cursor.execute(query, (x_email, y_email, item_id))
     data = cursor.fetchone()
-    item_id = data["lastID"]
-    query2 = 'SELECT fg_name FROM Share WHERE fg_name = %s'
-    cursor.execute(query2,(friend_group))
-    data = cursor.fetchone()
+
     if(data):
-        ins = 'INSERT INTO Share VALUES (%s,%s,%s)'
-        cursor.execute(ins,(friend_group,item_id,email))
-    cursor.close()
-    return render_template('home.html')
-'''
+        error = "You already tagged them in this post!"
+        cursor.close()
+        return render_template('manTags.html', error = error)
+
+    else:
+        if (x_email == y_email):
+            status = 1
+        else:
+            status = 0
+        ins = 'INSERT INTO Tag VALUES (%s,%s,%s,%s,None)'
+        cursor.execute(item_id,x_email,y_email,status)
+        conn_sql.commit()
+        cursor.close()
+        return redirect(url_for('manTags'))
+
+
 
 app.secret_key = 'FDSJKGSEW'
 

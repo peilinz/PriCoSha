@@ -60,8 +60,14 @@ Decline Tags<br>Item ID's</br>
     </select>
     <br>
     <input type="submit" value="Decline Tag" />
-    <br>
+    <br></br>
 
+Tag Someone!</br>
+<form action='/tagSome' method="POST">
+    Their Email: <input type="text" name="y_email" required/> </br>
+    Item ID: <input type="text" name="item_id"/> </br>
+
+    <input type="submit" value="Tag Them!" />
 
 <br></br>
     <button class="back"><a href="/home">Go back</a></button>
