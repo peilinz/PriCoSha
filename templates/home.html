@@ -20,7 +20,7 @@
 </style>
 <body>
 <h2> Welcome {{firstname}} {{lastname}}</h2>
-<h3> This is the photo your friends and the public posted in the last 24 hours. </h3>
+<h3> The following contents have been posted around the world in the last 24 hours. </h3>
 <br></br>
 <table>
     <tr bgcolor="#A9CDDF">
@@ -39,13 +39,33 @@
     </tr>
     {% endfor %}
 </table>
-<br></br>
+<br>
+<h3>These are the things your friends have posted: </h3>
+<table>
+    <tr bgcolor="#A9CDDF">
+    <th>Item ID</th>
+    <th>Email</th>
+    <th>Time</th>
+    <th>File Path</th>
+    <th>Item Description</th>
+    {% for item in all_p %}
+    <tr>
+        <td>{{item.item_id}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.post_time}}</td>
+        <td>{{item.file_path}}</td>
+        <td>{{item.item_name}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
 <button class="btn"><a href="/share">Post Publicly</a></button>
 <button class="btn"><a href="/sharePri">Post Privately</a></button>
 <button class="btn"><a href="/manTags">Manage Tags</a></button>
 <button class="btn"><a href="/addFriend">Add Friend</a></button>
 <button class="btn"><a href="/delFriend">Delete Friend</a></button>
-<br></br>
+<br>
 <button class="btn"><a href="/">Logout</a></button>
 
 

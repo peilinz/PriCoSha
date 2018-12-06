@@ -69,20 +69,32 @@ def registerAuth():
         cursor.close()
         return render_template('index.html')
 
+
 # View public contents
 @app.route('/home')
 def home():
     email = session['email']
     cursor = conn_sql.cursor()
+    name = 'SELECT first_name, last_name FROM person WHERE email= %s '
+    # View public contents
     query = 'SELECT item_id, email, post_time, file_path, item_name FROM ContentItem WHERE post_time >= NOW() - \
     INTERVAL 1 DAY AND is_pub = 1'
-    name = 'SELECT first_name, last_name FROM person WHERE email= %s '
+    # View group posts
+    group_post = 'SELECT DISTINCT item_id, email, post_time, file_path, item_name FROM ContentItem AS c ' \
+                 'NATURAL JOIN share NATURAL JOIN belong WHERE item_id IN ' \
+                 '(SELECT item_id FROM share AS s NATURAL JOIN belong ' \
+                 'WHERE s.email IN (SELECT member_email FROM belong WHERE fg_name = s.fg_name ' \
+                 'AND fg_name IN (SELECT fg_name FROM belong WHERE member_email= %s) AND ' \
+                 'belong.creator_email = (SELECT creator_email FROM belong WHERE member_email= %s)))'
     cursor.execute(query)
     data = cursor.fetchall()
-    cursor.execute(name, (email))
+    cursor.execute(name, email)
     names = cursor.fetchall()
+    cursor.execute(group_post, (email, email))
+    all_p = cursor.fetchall()
     cursor.close()
-    return render_template('home.html', post=data, firstname=names[0]['first_name'], lastname=names[0]['last_name'])
+    return render_template('home.html', post=data, firstname=names[0]['first_name'],
+                           lastname=names[0]['last_name'], all_posts=all_p)
 
 
 # Post a Content Item
@@ -215,12 +227,12 @@ def delFriend():
     cursor.execute(query, (email))
     data = cursor.fetchall()
     cursor.close()
-    return render_template('delFriend.html', groups = data)
+    return render_template('delFriend.html', groups=data)
 
 
 @app.route('/delFriendAuth', methods=['GET', 'POST'])
 def defFriendAuth():
-    email = 
+    email = session['email']
     return render_template('delFriend.html')
 
 
@@ -233,10 +245,10 @@ def manTags():
     query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE is_pub = 1 OR (Share.fg_name IN (SELECT fg_name FROM Belong WHERE email = %s))'
     cursor.execute(query, (email))
     data = cursor.fetchall()
-    cursor.execute(query2,(email))
+    cursor.execute(query2, (email))
     data2 = cursor.fetchall()
     cursor.close()
-    return render_template('manTags.html', tags=data, ids = data2)
+    return render_template('manTags.html', tags=data, ids=data2)
 
 
 @app.route('/tagAcc', methods=['GET', 'POST'])
@@ -278,13 +290,12 @@ def tagSome():
     data = cursor.fetchone()
     # check if they can actually see post
     query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE ContentItem.item_id = %s AND (is_pub = 1 OR Share.fg_name IN (SELECT fg_name FROM Belong WHERE email = %s))'
-    cursor.execute(query2,(item_id,y_email))
+    cursor.execute(query2, (item_id, y_email))
     q2data = cursor.fetchone()
     # check if y exists
     crp = 'SELECT email FROM Person WHERE email = %s'
-    cursor.execute(crp,(y_email))
+    cursor.execute(crp, (y_email))
     crpdata = cursor.fetchone()
-
 
     if data or not crp or not q2data:
         error = "You already tagged them in this post!"
