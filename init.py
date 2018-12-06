@@ -240,11 +240,11 @@ def delfFriendAuth():
     delQuery = 'DELETE FROM Belong WHERE member_email = %s, fg_name = %s, creator_email = %s'
     delPost = 'DELETE FROM Share WHERE email = %s, fg_name = %s'
     delTag = ''
-
+    cursor = conn_sql.cursor()
     #check if their in fg
     cursor.execute(checkQ, (their_email,email,fg_name))
     data = cursor.fetchone()
-    if data = None:
+    if data is None:
         error = 'Person is not in Friend Group or does not exist. Please try again!'
         return render_template('delFriend.html', error = error)
 
