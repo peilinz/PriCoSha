@@ -209,11 +209,18 @@ def addFriendAuth():
 
 @app.route('/delFriend')
 def delFriend():
-    return render_template('delFriend.html')
+    email = session['email']
+    cursor = conn_sql.cursor()
+    query = 'SELECT fg_name FROM FriendGroup WHERE email = %s'
+    cursor.execute(query, (email))
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('delFriend.html', groups = data)
 
 
 @app.route('/delFriendAuth', methods=['GET', 'POST'])
 def defFriendAuth():
+    email = 
     return render_template('delFriend.html')
 
 

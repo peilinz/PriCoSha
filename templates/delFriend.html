@@ -20,12 +20,14 @@ input[type=submit]{
 <head>
 </head>
 <body>
-<h1>Delete Friend from Friend Group</h1> <br><br>
+<h1>Delete Friend from Your Friend Group</h1> <br><br>
 <form action="/delFriendAuth" method="POST">
-    Friend Group: <input type="text" name="fg_name" required/> </br>
-    First Name: <input type="text" name="first_name"/> </br>
-    Last Name: <input type="text" name="last_name"/> </br>
     Email: <input type="text" name="mem_email"/></br>
+    <select class="form-control" name="fg_name">
+        {% for item in groups %}
+        <option value="{{item.fg_namne}}">{{item.fg_name}}</option>
+        {% endfor %}
+    </select>
 
     <input type="submit" value=Delete>
     <button class="back"><a href="/home">Go back</a></button>
