@@ -236,27 +236,27 @@ def delfFriendAuth():
     their_email = request.form['mem_email']
     fg_name = request.form.get['fg_name']
 
-    checkQ = 'SELECT member_email FROM Belong WHERE member_email = %s, creator_email = %s, fg_name = %s'
-    delQuery = 'DELETE FROM Belong WHERE member_email = %s, fg_name = %s, creator_email = %s'
-    delPost = 'DELETE FROM Share WHERE email = %s, fg_name = %s'
-    delTag = ''
+    checkQ = 'SELECT member_email FROM Belong WHERE member_email = %s AND creator_email = %s AND fg_name = %s'
+    delTag = 'DELETE FROM tag WHERE tagger = %s OR taggee = %s'
+    delPost = 'DELETE FROM Share WHERE email = %s AND fg_name = %s'
+    delQuery = 'DELETE FROM Belong WHERE member_email = %s AND creator_email = %s AND fg_name = %s'
     cursor = conn_sql.cursor()
-    #check if their in fg
-    cursor.execute(checkQ, (their_email,email,fg_name))
+    # check if their in fg
+    cursor.execute(checkQ, (their_email, email, fg_name))
     data = cursor.fetchone()
     if data is None:
         error = 'Person is not in Friend Group or does not exist. Please try again!'
-        return render_template('delFriend.html', error = error)
+        return render_template('delFriend.html', error=error)
 
-    #delete Tags
+    # delete Tags
+    cursor.execute(delTag, (their_email, their_email ))
+    # delete Post
+    cursor.execute(delPost, (email, fg_name))
+    conn_sql.commit()
+    # delete Person
+    cursor.execute(delQuery, (their_email, fg_name, email))
+    conn_sql.commit()
 
-    #delete Post
-    cursor.execute(delPost, (email,fg_name))
-    conn_sql.commit()
-    #delete Person
-    cursor.execute(delQuery,(their_email,fg_name,email))
-    conn_sql.commit()
-    
     cursor.close()
     return render_template('delFriend.html')
 
@@ -345,7 +345,7 @@ def viewFG():
     cursor = conn_sql.cursor()
     query = 'SELECT fg_name,creator_email FROM Belong WHERE member_email = %s'
 
-    cursor.execute(query, (fgemail))
+    cursor.execute(query, email)
     data = cursor.fetchall()
     
     cursor.close()
