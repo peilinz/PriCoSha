@@ -5,7 +5,7 @@ import hashlib
 app = Flask(__name__)
 
 conn_sql = pymysql.connect(host='localhost',
-                           port=3306,
+                           port=8889,
                            user='root',
                            password='root',
                            db='pricosha',
@@ -111,6 +111,7 @@ def shareAuth():
 
     # gets most recent ID
     cursor = conn_sql.cursor()
+
     query = 'SELECT max(item_id) as lastID FROM ContentItem'
     cursor.execute(query)
     data = cursor.fetchone()
@@ -148,24 +149,24 @@ def sharePriAuth():
     else:
         item_id = 0
 
-    # Adds to content item
-    ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
-    cursor.execute(ins, (item_id, email, None, file_path, item_name, 0))
-    conn_sql.commit()
+    check_if_in = 'SELECT fg_name FROM Belong WHERE fg_name = %s AND member_email = %s'
+    cursor.execute(check_if_in, (fg_list[0],email))
+    checkdata = cursor.fetchone()
 
-    # Adds to friend groups
-    for each in fg_list:
-        check = 'SELECT fg_name FROM Belong WHERE fg_name = %s AND member_email = %s'
-        check2 = 'SELECT item_id FROM Share WHERE fg_name = %s AND item_id = %s'
-        cursor.execute(check, (each, email))
-        data2 = cursor.fetchone()
-        cursor.execute(check2, (each, item_id))
-        data3 = cursor.fetchone()
-        if (data2 and not data3):
+    if(checkdata):
+        # Adds to content item
+        ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
+        cursor.execute(ins, (item_id, email, None, file_path, item_name, 0))
+        conn_sql.commit()
+
+        # Adds to friend groups
+        for each in fg_list:
             ins = 'INSERT INTO Share VALUES(%s,%s,%s)'
             cursor.execute(ins, (each, item_id, email))
             conn_sql.commit()
-
+    else:
+    	error = 'Not in Friend Group'
+    	return render_template('sharePri.html',error = error)
     cursor.close()
     return redirect(url_for('home'))
 
