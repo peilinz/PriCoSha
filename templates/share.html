@@ -1,13 +1,5 @@
 <html>
 <style>
-input[type=submit]{
- border: none;
-    background-color: #A9CDDF;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-block;
-}
 button{
  border: none;
     background-color: #A9CDDF;
@@ -28,14 +20,17 @@ button{
 <head>
 </head>
 <body>
-<h1>What would you like to share?</h1> <br><br>
+<h1>What would you like to share?</h1> 
 <form action="/shareAuth" method="POST">
     Item Name: <input type="text" name="item_name" required/> </br>
     URL: <input type="text" name="file_path"/> </br>
-    Public: <input type="checkbox" name="public"/> </br>
-
-    <input type="submit" value=Share>
-    <button class="back"><a href="/">Go back</a></button>
+    If private, which friend group would you like to share with?</br>
+    Friend Group: </br>
+    <input type="text" name="pgtext"></br>
+    <br></br>
+    <input type="submit" name = "public" value="Share Publicly"></br>
+    <input type="submit" name = "public" value="Share Privately"></br>
+    <button class="back"><a href="/home">Go back</a></button>
     {% if error %}
     <p class="error"><strong>Error:</strong> {{error}}</p>
     {% endif %}

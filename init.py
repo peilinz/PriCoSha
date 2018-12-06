@@ -91,38 +91,44 @@ def home():
 def share():
     return render_template('share.html')
 
-@app.route('/shareAuth',methods=['GET', 'POST'])
+@app.route('/shareAuth', methods=['GET', 'POST'])
 def shareAuth():
     item_name = request.form['item_name']
     file_path = request.form['file_path']
     email = session['email']
+    pgtext = request.form['pgtext']
     public = request.form['public']
     
     #gets mostrecentID
-    
     cursor = conn_sql.cursor()
     query = 'SELECT max(item_id) as lastID FROM ContentItem'
+    check = 'SELECT fg_name FROM Belong WHERE fg_name = %s AND member_email = %s'
+    check2 = 'SELECT item_id FROM Share WHERE fg_name = %s AND item_id = %s'
+
     cursor.execute(query)
     data = cursor.fetchone()
     if(data):
         item_id = data["lastID"] + 1
     else:
         item_id = 0
-    error = None
 
-    if(public):
-        public = 1
-    else:
+    if(public == 'Share Privately'):
+        cursor.execute(check,(pgtext,email))
+        data2 = fetchone()
+        cursor.execute(check2,(pgtext,item_id))
+        data3 = fetchone()
+        if (data2 and not data3):
+            ins = 'INSERT INTO Share VALUES(%s,%s,%s)'
+            cursor.execute(ins,(pgtext,item_id,email))
+            conn_sql.commit()
         public = 0
-    
+
     ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
-    cursor.execute(ins,(item_id,email,None,file_path,item_name, public))
+    cursor.execute(ins,(item_id,email,None,file_path,item_name, 1))
     conn_sql.commit()
     cursor.close()
-
-    message = "Shared!"
     return redirect(url_for('home'))
-
+    
 @app.route('/addFriend')
 def addFriend():
     return render_template('addFriend.html')
