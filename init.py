@@ -223,6 +223,7 @@ def manTags():
     email = session['email']
     cursor = conn_sql.cursor()
     query = 'SELECT tagger, item_id,tag_time FROM Tag WHERE tagged = %s AND status = 0'
+    query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE is_pub = 1 OR ('
     cursor.execute(query, (email))
     data = cursor.fetchall()
     cursor.close()
@@ -259,15 +260,23 @@ def tagDecline():
 def tagSome():
     x_email = session['email']
     y_email = request.form['y_email']
-    item_id = request.form['item_id']
+    item_id = request.form.get['item_id']
 
     cursor = conn_sql.cursor()
     # check if already tagged in same post by same person
     query = 'SELECT tagger,tagged, item_id, status FROM Tag WHERE tagger = %s AND tagged = %s AND item_id = %s'
+    # check if they can actually see post
+
+    # check if y exists
+    crp = 'SELECT email FROM Person WHERE email = %s'
     cursor.execute(query, (x_email, y_email, item_id))
     data = cursor.fetchone()
 
-    if (data):
+    cursor.execute(crp,(y_email))
+    crpdata = cursor.fetchone()
+
+
+    if data or crp:
         error = "You already tagged them in this post!"
         cursor.close()
         return render_template('manTags.html', error=error)

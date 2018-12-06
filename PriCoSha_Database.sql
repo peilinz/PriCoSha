@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS Person(
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	PRIMARY KEY(email)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS FriendGroup(
 	fg_name VARCHAR(50),
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS FriendGroup(
 	email VARCHAR(50),
 	PRIMARY KEY (fg_name, email),
 	FOREIGN KEY (email) REFERENCES Person(email)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS ContentItem(
 	item_id INT AUTO_INCREMENT,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS ContentItem(
 	is_pub BOOLEAN,
 	PRIMARY KEY(item_id),
 	FOREIGN KEY(email) REFERENCES Person(email)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 CREATE TABLE IF NOT EXISTS Tag(
@@ -38,7 +38,26 @@ CREATE TABLE IF NOT EXISTS Tag(
 	FOREIGN KEY(tagger) REFERENCES Person(email),
 	FOREIGN KEY(tagged) REFERENCES Person(email),
 	FOREIGN KEY(item_id) REFERENCES ContentItem(item_id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS Belong(
+	member_email VARCHAR(50),
+	fg_name VARCHAR(50),
+	creator_email VARCHAR(50),
+	PRIMARY KEY (member_email, fg_name, creator_email),
+	FOREIGN KEY (member_email) REFERENCES Person(email),
+	FOREIGN KEY (fg_name, creator_email) REFERENCES FriendGroup(fg_name, email) 
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE IF NOT EXISTS Share(
+	fg_name VARCHAR(50),
+	item_id INT,
+	email VARCHAR(50),
+	PRIMARY KEY (fg_name, item_id, email),
+	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name),
+	FOREIGN KEY (email,fg_name) REFERENCES Belong(member_email,fg_name)
+	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS Rate(
 	email VARCHAR(50),
@@ -48,26 +67,7 @@ CREATE TABLE IF NOT EXISTS Rate(
 	PRIMARY KEY(email, item_id),
 	FOREIGN KEY(email) REFERENCES Person(email),
 	FOREIGN KEY(item_id) REFERENCES ContentItem(item_id)
-);
-
-CREATE TABLE IF NOT EXISTS Belong(
-	member_email VARCHAR(50),
-	fg_name VARCHAR(50),
-	creator_email VARCHAR(50),
-	PRIMARY KEY (member_email, fg_name, creator_email),
-	FOREIGN KEY (member_email) REFERENCES Person(email),
-	FOREIGN KEY (fg_name, creator_email) REFERENCES FriendGroup(fg_name, email) 
-);
-
-CREATE TABLE IF NOT EXISTS Share(
-	fg_name VARCHAR(50),
-	item_id INT,
-	email VARCHAR(50),
-	PRIMARY KEY (fg_name, item_id, email),
-	FOREIGN KEY (fg_name, email) REFERENCES FriendGroup(fg_name, email),
-	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
-);
-
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
 /*CREATE TABLE IF NOT EXISTS Own(

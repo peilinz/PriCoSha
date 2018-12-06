@@ -65,7 +65,11 @@ Decline Tags<br>Item ID's</br>
 Tag Someone!</br>
 <form action='/tagSome' method="POST">
     Their Email: <input type="text" name="y_email" required/> </br>
-    Item ID: <input type="text" name="item_id"/> </br>
+    <select class="form-control" name="item_id">
+        {% for item in ids %}
+        <option value="{{item.item_id }}">{{item.item_id}}</option>
+        {% endfor %}
+    </select>
 
     <input type="submit" value="Tag Them!" />
 
