@@ -150,10 +150,10 @@ def sharePriAuth():
         item_id = 0
 
     check_if_in = 'SELECT fg_name FROM Belong WHERE fg_name = %s AND member_email = %s'
-    cursor.execute(check_if_in, (fg_list[0],email))
+    cursor.execute(check_if_in, (fg_list[0], email))
     checkdata = cursor.fetchone()
 
-    if(checkdata):
+    if (checkdata):
         # Adds to content item
         ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
         cursor.execute(ins, (item_id, email, None, file_path, item_name, 0))
@@ -165,8 +165,8 @@ def sharePriAuth():
             cursor.execute(ins, (each, item_id, email))
             conn_sql.commit()
     else:
-    	error = 'Not in Friend Group'
-    	return render_template('sharePri.html',error = error)
+        error = 'Not in Friend Group'
+        return render_template('sharePri.html', error=error)
     cursor.close()
     return redirect(url_for('home'))
 
@@ -230,7 +230,8 @@ def delFriend():
     cursor.close()
     return render_template('delFriend.html', groups=data)
 
-#Only owner can remove friend from Friend Group
+
+# Only owner can remove friend from Friend Group
 @app.route('/delFriendAuth', methods=['GET', 'POST'])
 def delfFriendAuth():
     email = session['email']
@@ -250,7 +251,7 @@ def delfFriendAuth():
         return render_template('delFriend.html', error=error)
 
     # delete Tags
-    cursor.execute(delTag, (their_email, their_email ))
+    cursor.execute(delTag, (their_email, their_email))
     # delete Post
     cursor.execute(delPost, (email, fg_name))
     conn_sql.commit()
@@ -260,6 +261,7 @@ def delfFriendAuth():
 
     cursor.close()
     return render_template('delFriend.html')
+
 
 # Tags
 @app.route('/manTags')
@@ -338,7 +340,8 @@ def tagSome():
         cursor.close()
         return redirect(url_for('manTags'))
 
-#Friend Groups
+
+# Friend Groups
 @app.route('/viewFG')
 def viewFG():
     email = session['email']
@@ -348,39 +351,57 @@ def viewFG():
 
     cursor.execute(query, email)
     data = cursor.fetchall()
-    
+
     cursor.close()
     return render_template('viewFG.html', data=data)
 
+
 @app.route('/createFG')
 def createFG():
-	return render_template('createFG.html')
+    return render_template('createFG.html')
 
-@app.route('/createFGAuth', methods = ['GET','POST'])
+
+@app.route('/createFGAuth', methods=['GET', 'POST'])
 def createFGAuth():
-	email = session['email']
-	fg_name = request.form['fg_name']
-	description = request.form['description']
+    email = session['email']
+    fg_name = request.form['fg_name']
+    description = request.form['description']
 
-	cursor = conn_sql.cursor()
-	check = 'SELECT fg_name FROM FriendGroup WHERE fg_name = %s AND email = %s'
-	cursor.execute(check,(fg_name,email))
-	querycheck = cursor.fetchone()
+    cursor = conn_sql.cursor()
+    check = 'SELECT fg_name FROM FriendGroup WHERE fg_name = %s AND email = %s'
+    cursor.execute(check, (fg_name, email))
+    querycheck = cursor.fetchone()
 
-	if(querycheck):
-		error = "You already have a friend group under this name"
-		return render_template('createFG.html', error = error)
-	else:
-		ins1 = 'INSERT INTO FriendGroup VALUES (%s,%s,%s)'
-		ins2 = 'INSERT INTO Belong VALUES (%s, %s, %s)'
-		cursor.execute(ins,(fg_name,description,email))
-		conn_sql.commit()
-		cursor.execute(ins2,(email,fg_name,email))
+    if (querycheck):
+        error = "You already have a friend group under this name"
+        return render_template('createFG.html', error=error)
+    else:
+        ins1 = 'INSERT INTO FriendGroup VALUES (%s,%s,%s)'
+        ins2 = 'INSERT INTO Belong VALUES (%s, %s, %s)'
+        cursor.execute(ins1, (fg_name, description, email))
+        conn_sql.commit()
+        cursor.execute(ins2, (email, fg_name, email))
+
 
 @app.route('/addComment')
 def comment():
-    # we are using rate as comment table
     return render_template('addComment.html')
+
+
+@app.route('/addAuth', methods=['GET', 'POST'])
+def commentAuth():
+    email = session['email']
+    print('guess im here?')
+    item_id = request.form.get('item_id')
+    print("am i here", item_id)
+    comm = request.form['comm']
+    cursor = conn_sql.cursor()
+    insert_comment = 'INSERT INTO Comment(email, item_id, emoji) Values (%s, %s, %s)'
+    cursor.execute(insert_comment, (email, item_id, comm))
+    cursor.commit()
+    cursor.close()
+    return render_template('addComment.html')
+
 
 app.secret_key = 'FDSJKGSEW'
 

@@ -50,7 +50,7 @@
     <th>Item Description</th>
     {% for item in all_p %}
     <tr>
-        <td>{{item.item_id}}</td>
+         <td><button class="btn"><a href="/addComment" value="{{item.item_id}}">{{item.item_id}}</a></button></td>
         <td>{{item.email}}</td>
         <td>{{item.post_time}}</td>
         <td>{{item.file_path}}</td>
