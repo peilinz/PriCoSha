@@ -173,11 +173,36 @@ def addFriendAuth():
 def manTags():
     email = session['email']
     cursor = conn_sql.cursor()
-    query = 'SELECT tagger, item_id, status, tag_time FROM Tag WHERE tagged = %s'
+    query = 'SELECT tagger, item_id,tag_time FROM Tag WHERE tagged = %s AND status = 0'
     cursor.execute(query,(email))
     data = cursor.fetchall()
     cursor.close()
     return render_template('manTags.html', tags = data)
+
+@app.route('/tagAcc', methods=['GET','POST'])
+def tagAcc():
+    email = session['email']
+    item_id = request.form.get('item_id')
+
+    cursor = conn_sql.cursor();
+    query= "UPDATE Tag SET status = %s WHERE tagged = %s AND item_id = %s"
+    cursor.execute(query, (True, email, item_id))
+    conn_sql.commit()
+    cursor.close()
+    return redirect(url_for('manTags'))
+
+@app.route('/tagDec', methods=['GET','POST'])
+def tagDecline():
+    email = session['email']
+    item_id = request.form.get('item_id')
+
+    cursor = conn_sql.cursor()
+    query = "DELETE FROM Tag WHERE tagged = %s AND item_id = %s"
+    cursor.execute(query, (email, item_id))
+    conn_sql.commit()
+    cursor.close()
+    return redirect(url_for('manTags'))
+
 
 @app.route('/delFriend')
 def delFriend():
@@ -186,6 +211,8 @@ def delFriend():
 @app.route('/delFriendAuth', methods = ['GET','POST'])
 def defFriendAuth():
     return render_template('delFriend.html')
+
+
 
     
 '''

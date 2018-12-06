@@ -18,27 +18,51 @@ table{
 <head>
 </head>
 <body>
+
 <h1>Manage Your Tags</h1> 
-<br><br>
-<table>
-    <tr bgcolor="#A9CDDF">
-    <th>Tagger</th>
-    <th>Item ID</th>
-    <th>Status</th>
-    <th>Tag Time</th>
-    <th>Accept</th>
-    <th>Decline</th>
-    {% for item in tags %}
-    <tr>
-        <td>{{item.tagger}}</td>
-        <td>{{item.item_id}}</td>
-        <td>{{item.status}}</td>
-        <td>{{item.tag_time}}</td>
-        <td><button class="btn"><a href="/manTags">Accept</a></button></td>
-        <td><button class="btn"><a href="/manTags">Decline</a></button></td>
-    </tr>
-    {% endfor %}
-</table>
+
+Here are all of your pending tags
+    <table>
+        <tr bgcolor="#A9CDDF">
+        <th>Tagger</th>
+        <th>Item ID</th>
+        <th>Tag Time</th>
+        {% for item in tags %}
+        <tr>
+            <td>{{item.tagger}}</td>
+            <td>{{item.item_id}}</td>
+            <td>{{item.tag_time}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br></br>
+
+
+Accept Tags <br>Item ID's:</br>
+<form action="/tagAcc" method="POST">
+        <select class="form-control" name="item_id">
+            {% for item in tags %}
+            <option value="{{item.item_id }}">{{item.item_id}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="submit" value="Accept Tag" />
+        <br>
+</form>
+
+
+Decline Tags<br>Item ID's</br>
+<form action='/tagDec' method="POST">
+    <select class="form-control" name="item_id">
+        {% for item in tags %}
+        <option value="{{item.item_id }}">{{item.item_id}}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value="Decline Tag" />
+    <br>
+
+
 <br></br>
     <button class="back"><a href="/home">Go back</a></button>
 </body>
