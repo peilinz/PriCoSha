@@ -338,7 +338,7 @@ def tagSome():
         cursor.close()
         return redirect(url_for('manTags'))
 
-#View Friend Groups
+#Friend Groups
 @app.route('/viewFG')
 def viewFG():
     email = session['email']
@@ -352,13 +352,35 @@ def viewFG():
     cursor.close()
     return render_template('viewFG.html', data=data)
 
+@app.route('/createFG')
+def createFG():
+	return render_template('createFG.html')
+
+@app.route('/createFGAuth', methods = ['GET','POST'])
+def createFGAuth():
+	email = session['email']
+	fg_name = request.form['fg_name']
+	description = request.form['description']
+
+	cursor = conn_sql.cursor()
+	check = 'SELECT fg_name FROM FriendGroup WHERE fg_name = %s AND email = %s'
+	cursor.execute(check,(fg_name,email))
+	querycheck = cursor.fetchone()
+
+	if(querycheck):
+		error = "You already have a friend group under this name"
+		return render_template('createFG.html', error = error)
+	else:
+		ins1 = 'INSERT INTO FriendGroup VALUES (%s,%s,%s)'
+		ins2 = 'INSERT INTO Belong VALUES (%s, %s, %s)'
+		cursor.execute(ins,(fg_name,description,email))
+		conn_sql.commit()
+		cursor.execute(ins2,(email,fg_name,email))
 
 @app.route('/addComment')
 def comment():
     # we are using rate as comment table
     return render_template('addComment.html')
-
-
 
 app.secret_key = 'FDSJKGSEW'
 
