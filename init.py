@@ -229,12 +229,16 @@ def delFriend():
     cursor.close()
     return render_template('delFriend.html', groups=data)
 
-
+#Only owner can remove friend from Friend Group
 @app.route('/delFriendAuth', methods=['GET', 'POST'])
-def defFriendAuth():
+def delfFriendAuth():
     email = session['email']
-    return render_template('delFriend.html')
+    their_email = request.form['mem_email']
+    fg_name = request.form.get['fg_name']
 
+    delQuery = 'DELETE FROM Belong WHERE member_email = %s, fg_name = %s, creator_email = %s'
+    delPost = 'DELETE FROM Share WHERE email = %s, fg_name = %s'
+    return render_template('delFriend.html')
 
 # Tags
 @app.route('/manTags')
