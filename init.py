@@ -337,6 +337,20 @@ def tagSome():
         cursor.close()
         return redirect(url_for('manTags'))
 
+#View Friend Groups
+@app.route('/viewFG')
+def viewFG():
+    email = session['email']
+
+    cursor = conn_sql.cursor()
+    query = 'SELECT fg_name,creator_email FROM Belong WHERE member_email = %s'
+
+    cursor.execute(query, (fgemail))
+    data = cursor.fetchall()
+    
+    cursor.close()
+    return render_template('manTags.html', data=data)
+
 
 app.secret_key = 'FDSJKGSEW'
 

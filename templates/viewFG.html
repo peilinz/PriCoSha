@@ -1,0 +1,41 @@
+<html>
+<style>
+table{
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {border: 1px solid #435259;}
+
+.back{
+     border: none;
+    background-color: #ff0000;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;}
+</style>
+
+<head>
+</head>
+<body>
+
+<h1>Manage Your Tags</h1> 
+
+Here are all of your friend groups:
+    <table>
+        <tr bgcolor="#A9CDDF">
+        <th>Friend Group Name</th>
+        <th>Owner</th>
+        {% for item in data %}
+        <tr>
+            <td>{{item.fg_name}}</td>
+            <td>{{item.creator_email}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br></br>
+
+<br></br>
+    <button class="back"><a href="/home">Go back</a></button>
+</body>
+</html>
