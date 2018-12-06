@@ -70,7 +70,6 @@ def registerAuth():
         return render_template('index.html')
 
 
-# View public contents
 @app.route('/home')
 def home():
     email = session['email']
@@ -78,14 +77,15 @@ def home():
     name = 'SELECT first_name, last_name FROM person WHERE email= %s '
     # View public contents
     query = 'SELECT item_id, email, post_time, file_path, item_name FROM ContentItem WHERE post_time >= NOW() - \
-    INTERVAL 1 DAY AND is_pub = 1'
+    INTERVAL 1 DAY AND is_pub = 1 ORDER BY post_time DESC'
     # View group posts
     group_post = 'SELECT DISTINCT item_id, email, post_time, file_path, item_name FROM ContentItem AS c ' \
                  'NATURAL JOIN share NATURAL JOIN belong WHERE item_id IN ' \
                  '(SELECT item_id FROM share AS s NATURAL JOIN belong ' \
                  'WHERE s.email IN (SELECT member_email FROM belong WHERE fg_name = s.fg_name ' \
                  'AND fg_name IN (SELECT fg_name FROM belong WHERE member_email= %s) AND ' \
-                 'belong.creator_email = (SELECT creator_email FROM belong WHERE member_email= %s)))'
+                 'belong.creator_email = (SELECT creator_email FROM belong ' \
+                 'WHERE member_email= %s))) ORDER BY post_time DESC'
     cursor.execute(query)
     data = cursor.fetchall()
     cursor.execute(name, email)
@@ -350,6 +350,8 @@ def viewFG():
     
     cursor.close()
     return render_template('manTags.html', data=data)
+
+
 
 
 app.secret_key = 'FDSJKGSEW'
