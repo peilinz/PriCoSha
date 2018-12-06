@@ -1,11 +1,11 @@
-from flask import Flask, render_template, request, redirect, session, url_for,flash
+from flask import Flask, render_template, request, redirect, session, url_for, flash
 import pymysql.cursors
 import hashlib
 
 app = Flask(__name__)
 
 conn_sql = pymysql.connect(host='localhost',
-                           port=8889,
+                           port=3306,
                            user='root',
                            password='root',
                            db='pricosha',
@@ -16,9 +16,7 @@ conn_sql = pymysql.connect(host='localhost',
 @app.route('/')
 def hello():
     return render_template('index.html')
-@app.route('/index')
-def index():
-    return render_template('index.html')
+
 
 @app.route('/login')
 def login():
@@ -36,7 +34,6 @@ def loginAuth():
     data = cursor.fetchone()
 
     cursor.close()
-    error = None
 
     if (data):
         session['email'] = email
@@ -62,8 +59,6 @@ def registerAuth():
     query = 'SELECT * FROM Person WHERE email = %s'
     cursor.execute(query, (email))
     data = cursor.fetchone()
-    error = None
-
     if (data):
         error = "This user already exists"
         return render_template('register.html', error=error)
@@ -74,7 +69,7 @@ def registerAuth():
         cursor.close()
         return render_template('index.html')
 
-
+# View public contents
 @app.route('/home')
 def home():
     email = session['email']
@@ -89,36 +84,40 @@ def home():
     cursor.close()
     return render_template('home.html', post=data, firstname=names[0]['first_name'], lastname=names[0]['last_name'])
 
-#Post a Content Item
+
+# Post a Content Item
 @app.route('/share')
 def share():
     return render_template('share.html')
+
 
 @app.route('/shareAuth', methods=['GET', 'POST'])
 def shareAuth():
     item_name = request.form['item_name']
     file_path = request.form['file_path']
     email = session['email']
-    
-    #gets mostrecentID
+
+    # gets most recent ID
     cursor = conn_sql.cursor()
     query = 'SELECT max(item_id) as lastID FROM ContentItem'
     cursor.execute(query)
     data = cursor.fetchone()
-    if(data):
+    if (data):
         item_id = data["lastID"] + 1
     else:
         item_id = 0
 
     ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
-    cursor.execute(ins,(item_id,email,None,file_path,item_name, 1))
+    cursor.execute(ins, (item_id, email, None, file_path, item_name, 1))
     conn_sql.commit()
     cursor.close()
     return redirect(url_for('home'))
 
+
 @app.route('/sharePri')
 def sharePri():
     return render_template('sharePri.html')
+
 
 @app.route('/sharePriAuth', methods=['GET', 'POST'])
 def sharePriAuth():
@@ -132,37 +131,40 @@ def sharePriAuth():
     query = 'SELECT max(item_id) as lastID FROM ContentItem'
     cursor.execute(query)
     data = cursor.fetchone()
-    if(data):
+    if (data):
         item_id = data["lastID"] + 1
     else:
         item_id = 0
 
-    #Adds to content item
+    # Adds to content item
     ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
-    cursor.execute(ins,(item_id,email,None,file_path,item_name, 0))
+    cursor.execute(ins, (item_id, email, None, file_path, item_name, 0))
     conn_sql.commit()
 
-    #Adds to friend groups
+    # Adds to friend groups
     for each in fg_list:
         check = 'SELECT fg_name FROM Belong WHERE fg_name = %s AND member_email = %s'
         check2 = 'SELECT item_id FROM Share WHERE fg_name = %s AND item_id = %s'
-        cursor.execute(check,(each,email))
+        cursor.execute(check, (each, email))
         data2 = cursor.fetchone()
-        cursor.execute(check2,(each,item_id))
+        cursor.execute(check2, (each, item_id))
         data3 = cursor.fetchone()
         if (data2 and not data3):
             ins = 'INSERT INTO Share VALUES(%s,%s,%s)'
-            cursor.execute(ins,(each,item_id,email))
+            cursor.execute(ins, (each, item_id, email))
             conn_sql.commit()
-    
+
     cursor.close()
     return redirect(url_for('home'))
-#Friends
+
+
+# Friends
 @app.route('/addFriend')
 def addFriend():
     return render_template('addFriend.html')
 
-@app.route('/addFriendAuth', methods = ['GET','POST'])
+
+@app.route('/addFriendAuth', methods=['GET', 'POST'])
 def addFriendAuth():
     fg_name = request.form['fg_name']
     first_name = request.form['first_name']
@@ -170,31 +172,31 @@ def addFriendAuth():
     mem_email = request.form['mem_email']
     creator_email = session['email']
 
-
     cursor = conn_sql.cursor()
-    #checks for exisiting friend group
+    # checks for exisiting friend group
     checkquery = "SELECT fg_name FROM FriendGroup WHERE fg_name = %s AND email = %s"
-    cursor.execute(checkquery,(fg_name,creator_email))
+    cursor.execute(checkquery, (fg_name, creator_email))
     checkfg = cursor.fetchone()
 
-    #checks for exisiting person
-    checkquery = "SELECT first_name, last_name, email FROM Person WHERE first_name = %s AND last_name = %s AND email = %s"
-    cursor.execute(checkquery,(first_name,last_name,mem_email))
+    # checks for exisiting person
+    checkquery = "SELECT first_name, last_name, email FROM Person WHERE first_name = %s " \
+                 "AND last_name = %s AND email = %s"
+    cursor.execute(checkquery, (first_name, last_name, mem_email))
     checkper = cursor.fetchone()
 
-
-    if(checkfg is not None and checkper is not None):
-    #checks if person is in friendgroup
-        checkquery = "SELECT member_email FROM Belong WHERE member_email = %s AND creator_email = %s AND fg_name = %s"
-        cursor.execute(checkquery,(mem_email,creator_email,fg_name))
+    if (checkfg is not None and checkper is not None):
+        # checks if person is in friendgroup
+        checkquery = "SELECT member_email FROM Belong WHERE member_email = %s " \
+                     "AND creator_email = %s AND fg_name = %s"
+        cursor.execute(checkquery, (mem_email, creator_email, fg_name))
         checkboth = cursor.fetchone()
-        if(checkboth):
+        if (checkboth):
             error = "Friend is already in group!"
             cursor.close()
             return render_template('addFriend.html', error=error)
         else:
             ins = "INSERT INTO Belong VALUES (%s,%s,%s)"
-            cursor.execute(ins,(mem_email,fg_name,creator_email))
+            cursor.execute(ins, (mem_email, fg_name, creator_email))
             conn_sql.commit()
             cursor.close()
             flash("Friend has been added!")
@@ -204,38 +206,43 @@ def addFriendAuth():
         error = "Friend Group or Person does not exist!"
         return render_template('addFriend.html', error=error)
 
+
 @app.route('/delFriend')
 def delFriend():
     return render_template('delFriend.html')
 
-@app.route('/delFriendAuth', methods = ['GET','POST'])
+
+@app.route('/delFriendAuth', methods=['GET', 'POST'])
 def defFriendAuth():
     return render_template('delFriend.html')
 
-#Tags
+
+# Tags
 @app.route('/manTags')
 def manTags():
     email = session['email']
     cursor = conn_sql.cursor()
     query = 'SELECT tagger, item_id,tag_time FROM Tag WHERE tagged = %s AND status = 0'
-    cursor.execute(query,(email))
+    cursor.execute(query, (email))
     data = cursor.fetchall()
     cursor.close()
-    return render_template('manTags.html', tags = data)
+    return render_template('manTags.html', tags=data)
 
-@app.route('/tagAcc', methods=['GET','POST'])
+
+@app.route('/tagAcc', methods=['GET', 'POST'])
 def tagAcc():
     email = session['email']
     item_id = request.form.get('item_id')
 
     cursor = conn_sql.cursor();
-    query= "UPDATE Tag SET status = %s WHERE tagged = %s AND item_id = %s"
+    query = "UPDATE Tag SET status = %s WHERE tagged = %s AND item_id = %s"
     cursor.execute(query, (True, email, item_id))
     conn_sql.commit()
     cursor.close()
     return redirect(url_for('manTags'))
 
-@app.route('/tagDec', methods=['GET','POST'])
+
+@app.route('/tagDec', methods=['GET', 'POST'])
 def tagDecline():
     email = session['email']
     item_id = request.form.get('item_id')
@@ -247,22 +254,23 @@ def tagDecline():
     cursor.close()
     return redirect(url_for('manTags'))
 
-@app.route('/tagSome', methods=['GET','POST'])
+
+@app.route('/tagSome', methods=['GET', 'POST'])
 def tagSome():
     x_email = session['email']
     y_email = request.form['y_email']
     item_id = request.form['item_id']
 
     cursor = conn_sql.cursor()
-    #check if already tagged in same post by same person
+    # check if already tagged in same post by same person
     query = 'SELECT tagger,tagged, item_id, status FROM Tag WHERE tagger = %s AND tagged = %s AND item_id = %s'
     cursor.execute(query, (x_email, y_email, item_id))
     data = cursor.fetchone()
 
-    if(data):
+    if (data):
         error = "You already tagged them in this post!"
         cursor.close()
-        return render_template('manTags.html', error = error)
+        return render_template('manTags.html', error=error)
 
     else:
         if (x_email == y_email):
@@ -270,11 +278,10 @@ def tagSome():
         else:
             status = 0
         ins = 'INSERT INTO Tag VALUES (%s,%s,%s,%s,None)'
-        cursor.execute(item_id,x_email,y_email,status)
+        cursor.execute(item_id, x_email, y_email, status)
         conn_sql.commit()
         cursor.close()
         return redirect(url_for('manTags'))
-
 
 
 app.secret_key = 'FDSJKGSEW'
