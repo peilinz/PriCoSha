@@ -87,6 +87,7 @@ def home():
     cursor.close()
     return render_template('home.html', post=data, firstname=names[0]['first_name'], lastname=names[0]['last_name'])
 
+#Post a Content Item
 @app.route('/share')
 def share():
     return render_template('share.html')
@@ -96,15 +97,10 @@ def shareAuth():
     item_name = request.form['item_name']
     file_path = request.form['file_path']
     email = session['email']
-    pgtext = request.form['pgtext']
-    public = request.form['public']
     
     #gets mostrecentID
     cursor = conn_sql.cursor()
     query = 'SELECT max(item_id) as lastID FROM ContentItem'
-    check = 'SELECT fg_name FROM Belong WHERE fg_name = %s AND member_email = %s'
-    check2 = 'SELECT item_id FROM Share WHERE fg_name = %s AND item_id = %s'
-
     cursor.execute(query)
     data = cursor.fetchone()
     if(data):
@@ -112,23 +108,54 @@ def shareAuth():
     else:
         item_id = 0
 
-    if(public == 'Share Privately'):
-        cursor.execute(check,(pgtext,email))
-        data2 = fetchone()
-        cursor.execute(check2,(pgtext,item_id))
-        data3 = fetchone()
-        if (data2 and not data3):
-            ins = 'INSERT INTO Share VALUES(%s,%s,%s)'
-            cursor.execute(ins,(pgtext,item_id,email))
-            conn_sql.commit()
-        public = 0
-
     ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
     cursor.execute(ins,(item_id,email,None,file_path,item_name, 1))
     conn_sql.commit()
     cursor.close()
     return redirect(url_for('home'))
+
+@app.route('/sharePri')
+def sharePri():
+    return render_template('sharePri.html')
+
+@app.route('/sharePriAuth', methods=['GET', 'POST'])
+def sharePriAuth():
+    item_name = request.form['item_name']
+    file_path = request.form['file_path']
+    fg_name = request.form['fg_name']
+    fg_list = fg_name.split(', ')
+    email = session['email']
+
+    cursor = conn_sql.cursor()
+    query = 'SELECT max(item_id) as lastID FROM ContentItem'
+    cursor.execute(query)
+    data = cursor.fetchone()
+    if(data):
+        item_id = data["lastID"] + 1
+    else:
+        item_id = 0
+
+    #Adds to content item
+    ins = 'INSERT INTO ContentItem VALUES (%s,%s,%s,%s,%s,%s)'
+    cursor.execute(ins,(item_id,email,None,file_path,item_name, 0))
+    conn_sql.commit()
+
+    #Adds to friend groups
+    for each in fg_list:
+        check = 'SELECT fg_name FROM Belong WHERE fg_name = %s AND member_email = %s'
+        check2 = 'SELECT item_id FROM Share WHERE fg_name = %s AND item_id = %s'
+        cursor.execute(check,(each,email))
+        data2 = cursor.fetchone()
+        cursor.execute(check2,(each,item_id))
+        data3 = cursor.fetchone()
+        if (data2 and not data3):
+            ins = 'INSERT INTO Share VALUES(%s,%s,%s)'
+            cursor.execute(ins,(each,item_id,email))
+            conn_sql.commit()
     
+    cursor.close()
+    return redirect(url_for('home'))
+#Friends
 @app.route('/addFriend')
 def addFriend():
     return render_template('addFriend.html')
@@ -175,6 +202,15 @@ def addFriendAuth():
         error = "Friend Group or Person does not exist!"
         return render_template('addFriend.html', error=error)
 
+@app.route('/delFriend')
+def delFriend():
+    return render_template('delFriend.html')
+
+@app.route('/delFriendAuth', methods = ['GET','POST'])
+def defFriendAuth():
+    return render_template('delFriend.html')
+
+#Tags
 @app.route('/manTags')
 def manTags():
     email = session['email']
@@ -209,14 +245,10 @@ def tagDecline():
     cursor.close()
     return redirect(url_for('manTags'))
 
+@app.route('/tagSome', methods=['GET','POST'])
 
-@app.route('/delFriend')
-def delFriend():
-    return render_template('delFriend.html')
 
-@app.route('/delFriendAuth', methods = ['GET','POST'])
-def defFriendAuth():
-    return render_template('delFriend.html')
+
 
 
 

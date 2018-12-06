@@ -29,11 +29,13 @@ button{
 </head>
 <body>
 <h1>What would you like to share?</h1> 
-<form action="/shareAuth" method="POST">
+<form action="/sharePriAuth" method="POST">
     Item Name: <input type="text" name="item_name" required/> </br>
     URL: <input type="text" name="file_path"/> </br>
+    Friend Groups: <input type="text" name = "fg_name" required/></br>
+    Seperate all friend groups with a ', '
     <br></br>
-    <input type="submit" name = "public" value="Share Publicly"></br>
+    <input type="submit" name = "private" value="Share Privately"></br>
     <button class="back"><a href="/home">Go back</a></button>
     {% if error %}
     <p class="error"><strong>Error:</strong> {{error}}</p>
