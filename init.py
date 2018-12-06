@@ -70,7 +70,7 @@ def registerAuth():
         return render_template('index.html')
 
 
-@app.route('/home')
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     email = session['email']
     cursor = conn_sql.cursor()
@@ -86,6 +86,8 @@ def home():
                  'AND fg_name IN (SELECT fg_name FROM belong WHERE member_email= %s) AND ' \
                  'belong.creator_email = (SELECT creator_email FROM belong ' \
                  'WHERE member_email= %s))) ORDER BY post_time DESC'
+    item_id = request.form.get('item_id')
+    print(item_id)
     cursor.execute(query)
     data = cursor.fetchall()
     cursor.execute(name, email)
