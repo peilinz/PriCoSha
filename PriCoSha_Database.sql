@@ -59,11 +59,11 @@ CREATE TABLE IF NOT EXISTS Share(
 	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS Rate(
+CREATE TABLE IF NOT EXISTS Comment(
 	email VARCHAR(50),
 	item_id INT,
 	rate_time TIMESTAMP,
-	emoji VARCHAR(50) CHARACTER SET utf8mb4,
+	emoji VARCHAR(1000),
 	PRIMARY KEY(email, item_id),
 	FOREIGN KEY(email) REFERENCES Person(email),
 	FOREIGN KEY(item_id) REFERENCES ContentItem(item_id)

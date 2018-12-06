@@ -5,7 +5,7 @@ import hashlib
 app = Flask(__name__)
 
 conn_sql = pymysql.connect(host='localhost',
-                           port=8889,
+                           port=3306,
                            user='root',
                            password='root',
                            db='pricosha',
@@ -354,6 +354,7 @@ def viewFG():
 
 @app.route('/addComment')
 def comment():
+    # we are using rate as comment table
     return render_template('addComment.html')
 
 
