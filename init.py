@@ -308,7 +308,7 @@ def tagDecline():
 def tagSome():
     x_email = session['email']
     y_email = request.form['y_email']
-    item_id = request.form.get['item_id']
+    item_id = request.form['item_id']
 
     cursor = conn_sql.cursor()
     # check if already tagged in same post by same person
