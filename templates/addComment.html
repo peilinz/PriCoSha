@@ -20,7 +20,7 @@
 <body>
 <h1>Comments</h1><br><br>
 
-<form action="/addAuth" method="GET">
+<form action="/addAuth" method="POST">
     <table>
     <tr bgcolor="#A9CDDF">
     <th>Email</th>
@@ -31,6 +31,9 @@
         <td>{{item.email}}</td>
         <td>{{item.time_posted}}</td>
         <td>{{item.description}}</td>
+        <script>
+document.getElementById("item");
+</script>
     </tr>
     {% endfor %}
 </table>

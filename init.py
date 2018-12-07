@@ -386,8 +386,12 @@ def createFGAuth():
 @app.route('/addComment', methods=['GET', 'POST'])
 def comment():
     item_id = request.args['item_id']
-    print(item_id)
-    return render_template('addComment.html', val=item_id)
+    cursor = conn_sql.cursor()
+    all_comms = 'SELECT email, time_posted, description FROM Comment WHERE item_id = %s ORDER BY time_posted DESC'
+    cursor.execute(all_comms, item_id)
+    comments = cursor.fetchall()
+    cursor.close()
+    return render_template('addComment.html', val=item_id, comments=comments)
 
 
 @app.route('/addAuth', methods=['GET', 'POST'])
@@ -395,16 +399,12 @@ def commentAuth():
     email = session['email']
     item_id = request.form['item_id']
     comm = request.form['comm']
-    print('i think i got in here', item_id)
     cursor = conn_sql.cursor()
     insert_comment = 'INSERT INTO Comment(email,item_id, description ) Values (%s, %s, %s)'
-    all_comms = 'SELECT email, time_posted, description FROM Comment WHERE item_id = %s ORDER BY time_posted DESC'
     cursor.execute(insert_comment, (email, item_id, comm))
-    cursor.execute(all_comms, item_id)
     conn_sql.commit()
-    cursor.fetchall()
     cursor.close()
-    return render_template('addComment.html', comments=all_comms)
+    return redirect(url_for('home'))
 
 app.secret_key = 'FDSJKGSEW'
 
