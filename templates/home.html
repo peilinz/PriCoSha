@@ -21,7 +21,8 @@
 <body>
 <h2> Welcome {{firstname}} {{lastname}}</h2>
 <h3> The following contents have been posted around the world in the last 24 hours. </h3>
-<br></br>
+<br>
+<form action="/addComment" method="POST">
 <table>
     <tr bgcolor="#A9CDDF">
     <th>Item ID</th>
@@ -31,7 +32,7 @@
     <th>Item Description</th>
     {% for item in post %}
     <tr>
-        <td><button class="btn"><a href="/addComment">{{item.item_id}}</a></button></td>
+        <td><button name="item_id" value="{{item.item_id}}"><a href="/addComment" >{{item.item_id}}</a></button></td>
         <td>{{item.email}}</td>
         <td>{{item.post_time}}</td>
         <td>{{item.file_path}}</td>
@@ -39,8 +40,10 @@
     </tr>
     {% endfor %}
 </table>
+</form>
 <br>
 <h3>These are the things your friends have posted: </h3>
+<form action="/addComment" method="POST">
 <table>
     <tr bgcolor="#A9CDDF">
     <th>Item ID</th>
@@ -50,7 +53,7 @@
     <th>Item Description</th>
     {% for item in all_p %}
     <tr>
-         <td><button><input name="item_id" value="{{item.item_id}}"><a href="/addComment" >{{item.item_id}}</a></button></td>
+         <td><button name="item_id" value="{{item.item_id}}"><a href="/addComment" >{{item.item_id}}</a></button></td>
         <td>{{item.email}}</td>
         <td>{{item.post_time}}</td>
         <td>{{item.file_path}}</td>
@@ -58,7 +61,7 @@
     </tr>
     {% endfor %}
 </table>
-
+</form>
 <br>
 <button class="btn"><a href="/share">Post Publicly</a></button>
 <button class="btn"><a href="/sharePri">Post Privately</a></button>

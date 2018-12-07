@@ -86,8 +86,6 @@ def home():
                  'AND fg_name IN (SELECT fg_name FROM belong WHERE member_email= %s) AND ' \
                  'belong.creator_email = (SELECT creator_email FROM belong ' \
                  'WHERE member_email= %s))) ORDER BY post_time DESC'
-    item_id = request.form.get('item_id')
-    print(item_id)
     cursor.execute(query)
     data = cursor.fetchall()
     cursor.execute(name, email)
@@ -385,20 +383,21 @@ def createFGAuth():
         cursor.execute(ins2, (email, fg_name, email))
 
 
-@app.route('/addComment')
+@app.route('/addComment', methods=['GET', 'POST'])
 def comment():
-    return render_template('addComment.html')
+    item_id = request.form.get('item_id')
+    print(item_id)
+    return render_template('addComment.html', val=item_id)
 
 
 @app.route('/addAuth', methods=['GET', 'POST'])
 def commentAuth():
     email = session['email']
-    print('guess im here?')
     item_id = request.form.get('item_id')
-    print("am i here", item_id)
     comm = request.form['comm']
     cursor = conn_sql.cursor()
     insert_comment = 'INSERT INTO Comment(email, item_id, emoji) Values (%s, %s, %s)'
+
     cursor.execute(insert_comment, (email, item_id, comm))
     cursor.commit()
     cursor.close()

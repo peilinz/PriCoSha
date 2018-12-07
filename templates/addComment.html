@@ -4,9 +4,10 @@
 <head></head>
 <body>
 <h1>Comments</h1><br><br>
-<form action="/addAuth" method="post">
-Comment here:
-<br>
+<form action="/addAuth" method="POST">
+    Comment here for item id <button name='item_id' value={{val}}>{{val}}</button>:
+    <br></form>
+<form action="/addAuth" method="POST">
 <textarea rows="6" cols="70" name="comm" required></textarea>
     <input type="submit" value="Post">
 </form>
