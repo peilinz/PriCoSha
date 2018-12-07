@@ -394,13 +394,16 @@ def commentAuth():
     email = session['email']
     item_id = request.form.get('item_id')
     comm = request.form['comm']
+
     cursor = conn_sql.cursor()
     insert_comment = 'INSERT INTO Comment(email, item_id, emoji) Values (%s, %s, %s)'
-
+    all_comms = 'SELECT email, rate_time, emoji FROM Comment WHERE item_id = %s ORDER BY rate_time DESC'
     cursor.execute(insert_comment, (email, item_id, comm))
+    cursor.execute(all_comms, item_id)
     conn_sql.commit()
+    cursor.fetchall()
     cursor.close()
-    return render_template('addComment.html')
+    return render_template('addComment.html', comments=all_comms)
 
 
 

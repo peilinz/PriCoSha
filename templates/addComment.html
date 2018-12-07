@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    table{
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {border: 1px solid #435259;}
+    .btn {
+    border: none;
+    background-color: #A9CDDF;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block;
+    }
 
+</style>
 <head></head>
 <body>
 <h1>Comments</h1><br><br>
+
 <form action="/addAuth" method="GET">
+    <table>
+    <tr bgcolor="#A9CDDF">
+    <th>Email</th>
+    <th>Time</th>
+    <th>Description</th>
+    {% for item in comments %}
+    <tr>
+        <td>{{item.email}}</td>
+        <td>{{item.rate_time}}</td>
+        <td>{{item.emoji}}</td>
+    </tr>
+    {% endfor %}
+</table>
     Comment here for item id {{val}}
     <br></form>
     <form action="/addAuth" method="POST">
