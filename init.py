@@ -75,10 +75,10 @@ def home():
     email = session['email']
     cursor = conn_sql.cursor()
     name = 'SELECT first_name, last_name FROM person WHERE email= %s '
-    # View public contents
+    # 1. View public contents
     query = 'SELECT item_id, email, post_time, file_path, item_name FROM ContentItem WHERE post_time >= NOW() - \
     INTERVAL 1 DAY AND is_pub = 1 ORDER BY post_time DESC'
-    # View group posts
+    # 3. View group posts
     group_post = 'SELECT DISTINCT item_id, email, post_time, file_path, item_name FROM ContentItem AS c ' \
                  'NATURAL JOIN share NATURAL JOIN belong WHERE item_id IN ' \
                  '(SELECT item_id FROM share AS s NATURAL JOIN belong ' \
@@ -236,7 +236,7 @@ def delFriend():
 def delfFriendAuth():
     email = session['email']
     their_email = request.form['mem_email']
-    fg_name = request.form.get['fg_name']
+    fg_name = request.form.get('fg_name')
 
     checkQ = 'SELECT member_email FROM Belong WHERE member_email = %s AND creator_email = %s AND fg_name = %s'
     delTag = 'DELETE FROM tag WHERE tagger = %s OR taggee = %s'
