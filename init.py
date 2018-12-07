@@ -388,7 +388,7 @@ def createFGAuth():
         cursor.execute(ins2, (email, fg_name, email))
         conn_sql.commit()
         cursor.close()
-        return redirect(url_for('viewFG.html'))
+        return redirect(url_for('viewFG'))
 
 
 @app.route('/addComment', methods=['GET', 'POST'])
