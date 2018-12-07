@@ -1,5 +1,31 @@
 <html>
 <style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+
+li a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+li a.title {
+    float: left;
+    font-size: 26px;
+}
+
+li a:hover {
+  background-color: #111;
+}
 input[type=submit]{
  border: none;
     background-color: #A9CDDF;
@@ -27,6 +53,11 @@ button{
 </style>
 <head>
 </head>
+<ul>
+<li><a class="title">PriCoSha</a></li>
+<li><a href="/home">Home</a></li>
+<li><a href="/home">Home</a></li>
+</ul>
 <body>
 <h1>What would you like to share?</h1> 
 <form action="/sharePriAuth" method="POST">
