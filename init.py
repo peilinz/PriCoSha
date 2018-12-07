@@ -395,9 +395,9 @@ def commentAuth():
     email = session['email']
     item_id = request.form['item_id']
     comm = request.form['comm']
-    print('i think i got in here')
+    print('i think i got in here', item_id)
     cursor = conn_sql.cursor()
-    insert_comment = 'INSERT INTO Comment(email,time_posted, description ) Values (%s, %s, %s)'
+    insert_comment = 'INSERT INTO Comment(email,item_id, description ) Values (%s, %s, %s)'
     all_comms = 'SELECT email, time_posted, description FROM Comment WHERE item_id = %s ORDER BY time_posted DESC'
     cursor.execute(insert_comment, (email, item_id, comm))
     cursor.execute(all_comms, item_id)

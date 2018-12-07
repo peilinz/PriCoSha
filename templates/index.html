@@ -1,21 +1,57 @@
 <html>
 <style>
-.btn {
-    border: none;
-    background-color: #A9CDDF;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
-    display: inline-block;
+body, html {
+    height: 100%;
+    width: 100%
 }
+
+.bg {
+
+    background-image: url("https://www.capturelandscapes.com/wp-content/uploads/2016/08/arctic-fire-1068x652.jpg");
+
+    height: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn {
+  overflow: hidden;
+  background-color: #333;
+  padding: 14px 16px;
+}
+
+.btn a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.btn a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.btn a.title {
+    float: left;
+    font-size: 26px;
+}
+
 </style>
 <head>
-
 </head>
-<h1>PriCoSha</h1><br><br>
 <body>
-<button class="btn"><a href="/login">Login</a></button>
-<button class="btn"><a href="/register">Register</a></button>
+<div class="btn">
+    <a class="title">PriCoSha</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+</div>
+<div class="bg"></div>
+
 </body>
 
 </html>
