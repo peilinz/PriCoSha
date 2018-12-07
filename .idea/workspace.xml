@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c367f9e-4c5e-4277-9cdd-9aff4b91cb80" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/addComment.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/addComment.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,27 +24,27 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="21" />
+          <entry key="html" value="22" />
           <entry key="py" value="3" />
           <entry key="sql" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="21" />
+          <entry key="HTML" value="22" />
           <entry key="Python" value="3" />
           <entry key="SQL" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="1742" />
+          <entry key="html" value="1746" />
           <entry key="py" value="1992" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="1742" />
+          <entry key="HTML" value="1746" />
           <entry key="Python" value="1992" />
         </counts>
       </usages-collector>
@@ -59,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/init.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-81">
-              <caret line="396" selection-start-line="396" selection-end-line="396" />
+            <state relative-caret-position="119">
+              <caret line="10" column="34" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="34" />
               <folding>
                 <marker date="1544144913847" expanded="true" signature="13640:13644" ph="..." />
                 <marker date="1544144913847" expanded="true" signature="13642:13644" ph="..." />
@@ -87,11 +86,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="163">
+              <caret line="55" column="41" lean-forward="true" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/addComment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-56">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="186">
+              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
               <folding>
                 <element signature="n#style#0;n#input#1;n#form#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -133,8 +141,9 @@
       <find>4</find>
       <find>commit</find>
       <find>submit</find>
-      <find>comment</find>
       <find>post</find>
+      <find>all_post</find>
+      <find>pri</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -150,8 +159,8 @@
         <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/templates/manTags.html" />
-        <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/init.py" />
+        <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/templates/addComment.html" />
       </list>
     </option>
@@ -248,6 +257,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1292" height="692" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.691954" visible="true" weight="0.2524272" />
       <window_info id="Favorites" order="1" sideWeight="0.50252527" side_tool="true" weight="0.17329094" />
@@ -265,7 +275,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="Run" order="3" visible="true" weight="0.27346277" />
+      <window_info active="true" anchor="right" id="Run" order="3" visible="true" weight="0.19255663" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -300,13 +310,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
           <caret line="2308" selection-start-line="2308" selection-end-line="2308" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="902">
-          <caret line="41" column="8" selection-start-line="25" selection-end-line="41" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -345,10 +348,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="55" column="41" lean-forward="true" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/init.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-81">
-          <caret line="396" selection-start-line="396" selection-end-line="396" />
+        <state relative-caret-position="119">
+          <caret line="10" column="34" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="34" />
           <folding>
             <marker date="1544144913847" expanded="true" signature="13640:13644" ph="..." />
             <marker date="1544144913847" expanded="true" signature="13642:13644" ph="..." />
@@ -358,8 +368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/addComment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-56">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="186">
+          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="n#style#0;n#input#1;n#form#1;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
