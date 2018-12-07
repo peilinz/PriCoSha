@@ -404,7 +404,7 @@ def commentAuth():
     cursor.execute(insert_comment, (email, item_id, comm))
     conn_sql.commit()
     cursor.close()
-    return redirect(url_for('home'))
+    return redirect(url_for('comment', item_id=item_id))
 
 app.secret_key = 'FDSJKGSEW'
 
