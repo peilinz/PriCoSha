@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1c367f9e-4c5e-4277-9cdd-9aff4b91cb80" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/PriCoSha_Database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/PriCoSha_Database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/init.py" beforeDir="false" afterPath="$PROJECT_DIR$/init.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/addComment.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/addComment.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,26 +28,28 @@
         <counts>
           <entry key="html" value="22" />
           <entry key="py" value="3" />
-          <entry key="sql" value="5" />
+          <entry key="sql" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="22" />
           <entry key="Python" value="3" />
-          <entry key="SQL" value="5" />
+          <entry key="SQL" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="1746" />
-          <entry key="py" value="1992" />
+          <entry key="html" value="1771" />
+          <entry key="py" value="2073" />
+          <entry key="sql" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="1746" />
-          <entry key="Python" value="1992" />
+          <entry key="HTML" value="1771" />
+          <entry key="Python" value="2073" />
+          <entry key="SQL" value="23" />
         </counts>
       </usages-collector>
     </session>
@@ -55,14 +59,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/init.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="10" column="34" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="34" />
+            <state relative-caret-position="301">
+              <caret line="393" column="18" lean-forward="true" selection-start-line="393" selection-start-column="18" selection-end-line="393" selection-end-column="18" />
               <folding>
-                <marker date="1544144913847" expanded="true" signature="13640:13644" ph="..." />
-                <marker date="1544144913847" expanded="true" signature="13642:13644" ph="..." />
+                <marker date="1544155318749" expanded="true" signature="13679:13683" ph="..." />
+                <marker date="1544155318749" expanded="true" signature="13681:13683" ph="..." />
               </folding>
             </state>
           </provider>
@@ -89,17 +93,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="55" column="41" lean-forward="true" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
+            <state relative-caret-position="97">
+              <caret line="52" column="22" lean-forward="true" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PriCoSha_Database.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="64" column="26" lean-forward="true" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/addComment.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="-22">
+              <caret line="35" column="8" lean-forward="true" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
               <folding>
                 <element signature="n#style#0;n#input#1;n#form#1;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
@@ -126,7 +139,6 @@
       <find>local</find>
       <find>index</find>
       <find>friend</find>
-      <find>comment</find>
       <find>am</find>
       <find>login</find>
       <find>form.</find>
@@ -142,8 +154,10 @@
       <find>commit</find>
       <find>submit</find>
       <find>post</find>
-      <find>all_post</find>
       <find>pri</find>
+      <find>error</find>
+      <find>all_post</find>
+      <find>comment</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -159,8 +173,9 @@
         <option value="$PROJECT_DIR$/templates/register.html" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/templates/manTags.html" />
-        <option value="$PROJECT_DIR$/init.py" />
         <option value="$PROJECT_DIR$/templates/home.html" />
+        <option value="$PROJECT_DIR$/PriCoSha_Database.sql" />
+        <option value="$PROJECT_DIR$/init.py" />
         <option value="$PROJECT_DIR$/templates/addComment.html" />
       </list>
     </option>
@@ -256,12 +271,12 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1292" height="692" extended-state="6" />
+    <frame x="-6" y="-6" width="1292" height="692" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.691954" visible="true" weight="0.2524272" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.691954" visible="true" weight="0.19012944" />
       <window_info id="Favorites" order="1" sideWeight="0.50252527" side_tool="true" weight="0.17329094" />
-      <window_info id="Structure" order="2" sideWeight="0.30804598" side_tool="true" visible="true" weight="0.2524272" />
+      <window_info id="Structure" order="2" sideWeight="0.30804598" side_tool="true" visible="true" weight="0.19012944" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32978722" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.4" />
@@ -313,13 +328,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PriCoSha_Database.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="64" column="23" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/manTags.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -350,28 +358,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="55" column="41" lean-forward="true" selection-start-line="55" selection-start-column="41" selection-end-line="55" selection-end-column="41" />
+        <state relative-caret-position="97">
+          <caret line="52" column="22" lean-forward="true" selection-start-line="52" selection-start-column="22" selection-end-line="52" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/init.py">
+    <entry file="file://$PROJECT_DIR$/PriCoSha_Database.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="10" column="34" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="34" />
-          <folding>
-            <marker date="1544144913847" expanded="true" signature="13640:13644" ph="..." />
-            <marker date="1544144913847" expanded="true" signature="13642:13644" ph="..." />
-          </folding>
+        <state relative-caret-position="116">
+          <caret line="64" column="26" lean-forward="true" selection-start-line="64" selection-start-column="26" selection-end-line="64" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/addComment.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="-22">
+          <caret line="35" column="8" lean-forward="true" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
           <folding>
             <element signature="n#style#0;n#input#1;n#form#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/init.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="393" column="18" lean-forward="true" selection-start-line="393" selection-start-column="18" selection-end-line="393" selection-end-column="18" />
+          <folding>
+            <marker date="1544155318749" expanded="true" signature="13679:13683" ph="..." />
+            <marker date="1544155318749" expanded="true" signature="13681:13683" ph="..." />
           </folding>
         </state>
       </provider>

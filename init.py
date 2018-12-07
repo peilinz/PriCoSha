@@ -386,6 +386,7 @@ def createFGAuth():
 @app.route('/addComment', methods=['GET', 'POST'])
 def comment():
     item_id = request.form.get('item_id')
+    print(item_id)
     return render_template('addComment.html', val=item_id)
 
 
@@ -396,8 +397,8 @@ def commentAuth():
     comm = request.form['comm']
 
     cursor = conn_sql.cursor()
-    insert_comment = 'INSERT INTO Comment(email, item_id, emoji) Values (%s, %s, %s)'
-    all_comms = 'SELECT email, rate_time, emoji FROM Comment WHERE item_id = %s ORDER BY rate_time DESC'
+    insert_comment = 'INSERT INTO Comment(email,time_posted, description ) Values (%s, %s, %s)'
+    all_comms = 'SELECT email, time_posted, description FROM Comment WHERE item_id = %s ORDER BY time_posted DESC'
     cursor.execute(insert_comment, (email, item_id, comm))
     cursor.execute(all_comms, item_id)
     conn_sql.commit()
