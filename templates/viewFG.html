@@ -61,10 +61,18 @@ Here are all of your friend groups:
         <tr bgcolor="#A9CDDF">
         <th>Friend Group Name</th>
         <th>Owner</th>
+            <th>Members</th>
         {% for item in data %}
         <tr>
             <td>{{item.fg_name}}</td>
             <td>{{item.creator_email}}</td>
+        <td>{% for m in mem %}
+            {% if (m.fg_name == item.fg_name and m.creator_email == item.creator_email)%}
+        {{m.member_email}}<br>
+            {% endif %}
+        {% endfor %}
+        </td>
+
         </tr>
         {% endfor %}
     </table>

@@ -353,12 +353,16 @@ def viewFG():
 
     cursor = conn_sql.cursor()
     query = 'SELECT fg_name,creator_email FROM Belong WHERE member_email = %s'
+    members = 'SELECT member_email, creator_email, fg_name FROM belong'
 
     cursor.execute(query, email)
     data = cursor.fetchall()
 
+    cursor.execute(members)
+    mem = cursor.fetchall()
+
     cursor.close()
-    return render_template('viewFG.html', data=data)
+    return render_template('viewFG.html', data=data, mem=mem)
 
 
 @app.route('/createFG')

@@ -98,10 +98,10 @@ li a:hover {
         <td>{{item.item_name}}</td>
         <td>{% for elem in taggees %}
             {% if item.item_id == elem.item_id %}
-            {{elem.first_name}} {{elem.last_name}}
+            {{elem.first_name}} {{elem.last_name}} <br>
             {% endif %}
+                    {% endfor %}
         </td>
-        {% endfor %}
     </tr>
     {% endfor %}
 </table>
