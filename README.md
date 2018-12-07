@@ -31,4 +31,5 @@ Extra Features:
     We basically used Rate as the Comment database. There are four attributes in the Comment databases: email, item_id, post_time, description, where description is the same as comment on the post. The primary keys are email, item_id, and post_time so that a user can comment more than once.
 
 Kevin - Primarily worked on Flask, some HTML
+
 Peilin - Primarily worked on HTML, some Flask
