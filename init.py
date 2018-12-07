@@ -84,7 +84,7 @@ def home():
                  '(SELECT item_id FROM share AS s NATURAL JOIN belong ' \
                  'WHERE s.email IN (SELECT member_email FROM belong WHERE fg_name = s.fg_name ' \
                  'AND fg_name IN (SELECT fg_name FROM belong WHERE member_email= %s) AND ' \
-                 'belong.creator_email = (SELECT creator_email FROM belong ' \
+                 'belong.creator_email IN (SELECT creator_email FROM belong ' \
                  'WHERE member_email= %s))) ORDER BY post_time DESC'
     cursor.execute(query)
     data = cursor.fetchall()
@@ -381,6 +381,9 @@ def createFGAuth():
         cursor.execute(ins1, (fg_name, description, email))
         conn_sql.commit()
         cursor.execute(ins2, (email, fg_name, email))
+        conn_sql.commit()
+        cursor.close()
+        return redirect(url_for('viewFG.html'))
 
 
 @app.route('/addComment', methods=['GET', 'POST'])
