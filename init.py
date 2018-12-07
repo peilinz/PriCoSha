@@ -115,7 +115,7 @@ def shareAuth():
     query = 'SELECT max(item_id) as lastID FROM ContentItem'
     cursor.execute(query)
     data = cursor.fetchone()
-    if (data):
+    if data["lastID"] is not None:
         item_id = data["lastID"] + 1
     else:
         item_id = 0

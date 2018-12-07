@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Share(
 	email VARCHAR(50),
 	PRIMARY KEY (fg_name, item_id, email),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name),
-	FOREIGN KEY (email,fg_name) REFERENCES Belong(member_email,fg_name)
+	FOREIGN KEY (email,fg_name) REFERENCES Belong(member_email,fg_name),
 	FOREIGN KEY (item_id) REFERENCES ContentItem(item_id)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
