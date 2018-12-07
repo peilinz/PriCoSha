@@ -6,9 +6,9 @@ Pricosha:
 2) Register asks for email, password, first name, last name and checks if the person is already registered, if not, adds them to the Person table.
 3) Login checks if the email and password match with on the database and goes to home if it does, raises an error if not.
 4) The home page has the individuals public feed and private feed from friend groups, reverse chronically sorted.
-    The home page also has various buttons to other features: delete friend, add friend, manage tags, view friend group, post privately, post publicly, and logout. 
+    a) The home page also has various buttons to other features: delete friend, add friend, manage tags, view friend group, post privately, post publicly, and logout. 
 5) Post publicly asks for item name, url(optional) and inserts it into the ContentItem table with a public value of true.
-6) Post privately asks for item name, url(optional) and inserts it into the ContentItem table with a private value of false. It also asks for friend groups in which the user wants to add the item to. Adds that to the Share table.
+6) Post privately asks for item name, url(optional) and inserts it into the ContentItem table with a private value of false.  It also asks for friend groups in which the user wants to add the item to. Adds that to the Share table.
 7) View friend group shows all of the user’s friend groups that they are in.
 8) Manage tags shows the user all of their tags that are pending action. The user can choose to accept a tag, decline a tag, or create a tag. 
     Accept a tag and decline a tag asks to select a item id, and user must choose the one they want to accept. 
