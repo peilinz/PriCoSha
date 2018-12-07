@@ -5,7 +5,7 @@ import hashlib
 app = Flask(__name__)
 
 conn_sql = pymysql.connect(host='localhost',
-                           port=8889,
+                           port=3306,
                            user='root',
                            password='root',
                            db='pricosha',
@@ -86,15 +86,20 @@ def home():
                  'AND fg_name IN (SELECT fg_name FROM belong WHERE member_email= %s) AND ' \
                  'belong.creator_email IN (SELECT creator_email FROM belong ' \
                  'WHERE member_email= %s))) ORDER BY post_time DESC'
+    # 3a. Getting all the taggees out
+    taggees = 'SELECT item_id, first_name, last_name FROM tag JOIN person ON ' \
+              'tag.tagged = person.email WHERE tag.status=1'
     cursor.execute(query)
     data = cursor.fetchall()
     cursor.execute(name, email)
     names = cursor.fetchall()
     cursor.execute(group_post, (email, email))
     all_p = cursor.fetchall()
+    cursor.execute(taggees)
+    taggees = cursor.fetchall()
     cursor.close()
-    return render_template('home.html', post=data, firstname=names[0]['first_name'],
-                           lastname=names[0]['last_name'], all_posts=all_p)
+    return render_template('home.html', post=data, firstname=names[0]['first_name'], lastname=names[0]['last_name'],
+                           all_posts=all_p, taggees=taggees)
 
 
 # Post a Content Item

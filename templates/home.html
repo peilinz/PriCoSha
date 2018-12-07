@@ -87,7 +87,8 @@ li a:hover {
     <th>Email</th>
     <th>Time</th>
     <th>File Path</th>
-    <th>Item Description</th>
+    <th>Item Description</th><th>Taggees</th>
+
     {% for item in all_posts %}
     <tr>
          <td><button name="item_id" value={{item.item_id}}>{{item.item_id}}</button></td>
@@ -95,6 +96,12 @@ li a:hover {
         <td>{{item.post_time}}</td>
         <td>{{item.file_path}}</td>
         <td>{{item.item_name}}</td>
+        <td>{% for elem in taggees %}
+            {% if item.item_id == elem.item_id %}
+            {{elem.first_name}} {{elem.last_name}}
+            {% endif %}
+        </td>
+        {% endfor %}
     </tr>
     {% endfor %}
 </table>
