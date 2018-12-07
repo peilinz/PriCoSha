@@ -386,7 +386,6 @@ def createFGAuth():
 @app.route('/addComment', methods=['GET', 'POST'])
 def comment():
     item_id = request.form.get('item_id')
-    print(item_id)
     return render_template('addComment.html', val=item_id)
 
 
@@ -399,9 +398,10 @@ def commentAuth():
     insert_comment = 'INSERT INTO Comment(email, item_id, emoji) Values (%s, %s, %s)'
 
     cursor.execute(insert_comment, (email, item_id, comm))
-    cursor.commit()
+    conn_sql.commit()
     cursor.close()
     return render_template('addComment.html')
+
 
 
 app.secret_key = 'FDSJKGSEW'
