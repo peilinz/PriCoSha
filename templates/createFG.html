@@ -1,6 +1,31 @@
 <html>
 <style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
 
+
+li a {
+  float: right;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+li a.title {
+    float: left;
+    font-size: 26px;
+}
+
+li a:hover {
+  background-color: #111;
+}
 input[type=submit]{
  border: none;
     background-color: #A9CDDF;
@@ -20,16 +45,19 @@ input[type=submit]{
 </style>
 <head>
 </head>
+<ul>
+<li><a class="title">PriCoSha</a></li>
+</ul>
 <body>
-<h1>Create a New Friend Group</h1> <br><br>
+<h1>Create a New Friend Group</h1> <br>
 <form action="/createFGAuth" method="POST">
     Email: <input type="text" name="email" required/> </br>
     Friend Group: <input type="text" name="fg_name" required/></br>
     Description: <input type="text" name="description"/></br>
-    
+    <br>
 
     <input type="submit" value=createFG>
-    <button class="back"><a href="/">Go back</a></button>
+    <button class="back"><a href="/home">Go back</a></button>
     {% if error %}
     <p class="error"><strong>Error:</strong> {{error}}</p>
     {% endif %}
