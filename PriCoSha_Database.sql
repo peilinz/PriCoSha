@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS ContentItem(
 CREATE TABLE IF NOT EXISTS Tag(
 	tagger VARCHAR(50),
 	tagged VARCHAR(50),
-	item_id INT,
+	item_id INT AUTO_INCREMENT,
 	status VARCHAR(50),
 	tag_time TIMESTAMP,
 	PRIMARY KEY(tagger, tagged, item_id),
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS Belong(
 
 CREATE TABLE IF NOT EXISTS Share(
 	fg_name VARCHAR(50),
-	item_id INT,
+	item_id INT AUTO_INCREMENT,
 	email VARCHAR(50),
 	PRIMARY KEY (fg_name, item_id, email),
 	FOREIGN KEY (fg_name) REFERENCES FriendGroup(fg_name),
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Share(
 
 CREATE TABLE IF NOT EXISTS Comment(
 	email VARCHAR(50),
-	item_id INT,
+	item_id INT AUTO_INCREMENT,
 	time_posted TIMESTAMP,
 	description VARCHAR(1000),
 	PRIMARY KEY(email, item_id, time_posted),

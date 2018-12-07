@@ -144,7 +144,7 @@ def sharePriAuth():
     query = 'SELECT max(item_id) as lastID FROM ContentItem'
     cursor.execute(query)
     data = cursor.fetchone()
-    if (data):
+    if data['lastID'] is not None:
         item_id = data["lastID"] + 1
     else:
         item_id = 0
@@ -385,7 +385,7 @@ def createFGAuth():
 
 @app.route('/addComment', methods=['GET', 'POST'])
 def comment():
-    item_id = request.form.get('item_id')
+    item_id = request.args['item_id']
     print(item_id)
     return render_template('addComment.html', val=item_id)
 
@@ -393,9 +393,9 @@ def comment():
 @app.route('/addAuth', methods=['GET', 'POST'])
 def commentAuth():
     email = session['email']
-    item_id = request.form.get('item_id')
+    item_id = request.form['item_id']
     comm = request.form['comm']
-
+    print('i think i got in here')
     cursor = conn_sql.cursor()
     insert_comment = 'INSERT INTO Comment(email,time_posted, description ) Values (%s, %s, %s)'
     all_comms = 'SELECT email, time_posted, description FROM Comment WHERE item_id = %s ORDER BY time_posted DESC'
@@ -405,8 +405,6 @@ def commentAuth():
     cursor.fetchall()
     cursor.close()
     return render_template('addComment.html', comments=all_comms)
-
-
 
 app.secret_key = 'FDSJKGSEW'
 
