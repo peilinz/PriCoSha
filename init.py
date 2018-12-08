@@ -314,39 +314,40 @@ def tagSome():
     x_email = session['email']
     y_email = request.form['y_email']
     item_id = request.form['item_id']
-
+    status = 0
+    
     cursor = conn_sql.cursor()
     # check if already tagged in same post by same person
-    query = 'SELECT tagger,tagged, item_id, status FROM Tag WHERE tagger = %s AND tagged = %s AND item_id = %s'
+    query = 'SELECT * FROM Tag WHERE tagger = %s AND tagged = %s AND item_id = %s'
     cursor.execute(query, (x_email, y_email, item_id))
     data = cursor.fetchone()
+    
     # check if they can actually see post
-    query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE ContentItem.item_id = %s AND (is_pub = 1 OR Share.fg_name IN (SELECT fg_name FROM Belong WHERE email = %s))'
+    query2 = 'SELECT item_id FROM ContentItem NATURAL JOIN Share WHERE Share.item_id = %s AND Share.fg_name IN (SELECT fg_name FROM Belong where member_email = %s)'
     cursor.execute(query2, (item_id, y_email))
     q2data = cursor.fetchone()
+    
     # check if y exists
     crp = 'SELECT email FROM Person WHERE email = %s'
     cursor.execute(crp, (y_email))
     crpdata = cursor.fetchone()
-
-    if data or not crp or not q2data:
-        error = "You already tagged them in this post!"
+    
+    if (data or not q2data or not crp):
+        error = "Not valid!"
         cursor.close()
-        return render_template('manTags.html', error=error)
-
+        return redirect(url_for('manTags',error = error))
+    
     else:
         if (x_email == y_email):
             status = 1
         else:
             status = 0
-        ins = 'INSERT INTO Tag VALUES (%s,%s,%s,%s,None)'
-        cursor.execute(item_id, x_email, y_email, status)
+        ins = 'INSERT INTO Tag VALUES (%s,%s,%s,%s,%s)'
+        cursor.execute(ins,(x_email, y_email, item_id,status,None))
         conn_sql.commit()
         cursor.close()
         return redirect(url_for('manTags'))
 
-
-# Friend Groups
 @app.route('/viewFG')
 def viewFG():
     email = session['email']
