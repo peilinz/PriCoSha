@@ -25,7 +25,7 @@ Extra Features:
     Checks if the email provided is a valid email, meaning the person is in the friend group or even exists.
     Makes sure the person removing is actually the owner of the friend group.
     
-2)Add comments: Peilin Zhen
+2) Add comments: Peilin Zhen
     This feature allows users to comment on the content items that are visible to them by clicking on the item id of each item. A new page will display all the comments have been posted for that content as well as allow the user to comment.
     It is a good feature because it allows the user to express their opinions about a particular content
     We basically used Rate as the Comment database. There are four attributes in the Comment databases: email, item_id, post_time, description, where description is the same as comment on the post. The primary keys are email, item_id, and post_time so that a user can comment more than once.
